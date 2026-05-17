@@ -49,6 +49,41 @@
 (defvar *output-pn* nil)
 (defvar *out-stream* nil)
 
+(defvar *api-docs* nil)
+(defvar *api-doc-list-sorter* #'identity)
+
+
+
+(defun gather-api-doc  (sym sym-type)
+  ;; TODO
+  )
+
+
+(defun gather-api-docs-of-package (package-name)
+  ;; TODO
+  )
+
+
+(defun gather-api-docs ()
+  ;; TODO
+  )
+
+
+(defun sort-api-docs ()
+  (let ((sorted (funcall *api-doc-list-sorter*
+                         *api-docs*)))
+    (setf *api-docs* sorted)))
+
+
+(defun print-api-ref ()
+  ;; TODO
+  )
+
+
+(defun print-toc ()
+  ;; TODO
+  )
+
 
 (defun print-sections ()
   ;; (format *out-stream* "~a ~A~%" *seed-plist* *output-pn*)
@@ -80,14 +115,18 @@
     (uiop:with-output-file (*out-stream*
                             *output-pn*
                             :if-exists :supersede)
-      ;; TODO gather api-refs
+      ;; gather & sort: api-refs
+      (gather-api-docs)
+      (sort-api-docs)
       ;; TODO build toc
       (print-sections)
       )))
 
 
-;; TODO api-refs: ordering?
+;; TODO api-refs: sorting function
+;; TODO api-refs: printer function
 
+;; TODO toc: printer-function
 
 
 
