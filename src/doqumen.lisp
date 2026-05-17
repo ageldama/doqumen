@@ -1,5 +1,6 @@
 (defpackage #:doqumen
-  (:use #:cl #:rutils #:iterate)
+  (:use #:cl #:iterate)
+  (:import-from #:rutils #:-> #:% #:appendf)
   (:export :build-doc))
 
 (in-package :doqumen)
@@ -350,22 +351,6 @@
     (format *out-stream* "~v@{~A~:*~}" level "   ")
     (let ((text (getf e :text))
           (anchor (getf e :anchor)))
-      ;; TOC, API-REF, Section-file Headings
-      (cond
-        ((eq text :toc)
-         (setf text *toc-title*
-               anchor *toc-anchor*))
-        ((eq text :api-ref)
-         (setf text *api-ref-title*
-               anchor *api-ref-anchor*))
-        ((pathnamep text)
-         (setf text (or (funcall *section-file-title-func* text)
-                        (format nil "~A" text))
-               anchor (format nil "~A" anchor)))
-        (t
-         (setf text (format nil "~A" text)
-               anchor (format nil "~A" anchor))))
-      ;;
       (format *out-stream* "1. [~A](#~A)~%"
               text
               (funcall *anchor-uri-encode-func* anchor)))
@@ -427,8 +412,16 @@
                         :text (getf (first subl-l) :text)
                         :anchor (getf (first subl-l) :anchor)
                         :children subl-r)))
-        ((keywordp section)
-         (toc-appendf toc :text section :anchor section))
+        ((eq section :toc)
+         (toc-appendf toc :text *toc-title*
+                          :anchor *toc-anchor*))
+        ((eq section :api-ref)
+         (toc-appendf toc :text *api-ref-title*
+                          :anchor *api-ref-anchor*))
+        ((pathnamep section)
+         (toc-appendf toc :text (or (funcall *section-file-title-func* section)
+                                    (format nil "~A" section))
+                          :anchor (format nil "~A" section)))
         (t
          (toc-appendf toc :text section :anchor section))))
     toc))
