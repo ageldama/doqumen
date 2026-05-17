@@ -61,7 +61,6 @@
 
 
 ;; TODO api-refs: printer function
-;; TODO api-refs->toc
 
 
 (defmethod type-keyword (node) :unknown)
@@ -143,7 +142,7 @@
                 collect (node-info-list slot))))
 
 (defmethod node-info-list ((node docparser:cffi-union))
-  "FIXME: ->nil"
+  ;; FIXME: ->nil
   (list
    :docstring (docparser:node-docstring node)
    :variants (docparser:cffi-union-variants node)))
@@ -417,7 +416,9 @@
                           :anchor *toc-anchor*))
         ((eq section :api-ref)
          (toc-appendf toc :text *api-ref-title*
-                          :anchor *api-ref-anchor*))
+                          :anchor *api-ref-anchor*
+                          :children (api-refs->toc *api-refs*)
+                          ))
         ((pathnamep section)
          (toc-appendf toc :text (or (funcall *section-file-title-func* section)
                                     (format nil "~A" section))
@@ -521,8 +522,7 @@
      (list :text (format nil "PACKAGE: ~A" (getf pkg :pkg-name))
            :anchor (format nil "~APACKAGE-~A"
                            *api-ref-anchor-prefix*
-                           (getf pkg :pkg-name)
-                           )))
+                           (getf pkg :pkg-name))))
     ;;
     (dolist (symb (getf pkg :symbols))
       (let ((type (getf symb :type))
@@ -545,8 +545,21 @@
                                   type name)))))))))
 
 
-           
-(defvar xxx nil)
+(defun api-refs->toc (api-refs)
+  (let ((results '()))
+    (dolist (pkg api-refs)
+      (let ((pkg-toc `(:text   ,(getf pkg :text)
+                       :anchor ,(getf pkg :anchor)))
+            (pkg-symbols '()))
+        (dolist (symb (getf pkg :symbols))
+          (rutils:nconcf pkg-symbols
+                         (list (list :text (getf symb :text)
+                                     :anchor (getf symb :anchor)))))
+        (rutils:nconcf pkg-toc (list :children pkg-symbols))
+        (rutils:nconcf results (list pkg-toc))))
+    results))
+
+
 
 
 
