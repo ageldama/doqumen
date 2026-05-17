@@ -34,18 +34,16 @@
 
 (defvar *system-name* nil)
 
-(defvar *seed-package-name* nil)
+(defvar *seed-symbol* nil)
 (defvar *seed-prop-name* nil)
 
 (defvar *seed-plist* nil)
 
 
-(defun seed-plist-from-package-name
-    (&key
-       (pkg-name *seed-package-name*)
-       prop-name)
-  (assert pkg-name (pkg-name))
-  (let ((seed-plist (get pkg-name prop-name)))
+(defun seed-plist ()
+  (assert *seed-symbol* (*seed-symbol*))
+  (assert *seed-prop-name* (*seed-prop-name*))
+  (let ((seed-plist (get *seed-symbol* *seed-prop-name*)))
     seed-plist))
 
 
@@ -54,6 +52,12 @@
 (defvar *out-stream* nil)
 
 (defvar *docparser-index* nil)
+
+(defvar *api-refs* nil)
+
+(defvar *api-ref-anchor-prefix* "api-ref-")
+
+(defvar *api-ref-print-anchor?* t)
 
 
 
@@ -259,96 +263,172 @@
 
 
 
-;; (setf idx (docparser:parse :raw-cffi-tcl9))
-;; (setf idx (docparser:parse :tclish))
 
-(defun xxx ()
-  (docparser:do-packages (pkg idx)
-    (format t "[PKG] ~a~%" (docparser:package-index-name pkg))
-    (format t "~T[DOC] ~a~%~%" (docparser:package-index-docstring pkg))
-
-    (docparser:do-nodes (node pkg)
-      (format t "~T[NODE] ~a / ~a~%" 
-              (docparser:node-name node)
-              (type-keyword node)
-              )
-      (format t "~T~T[DOC] ~a~%"
-              (docparser:node-docstring node))
-      (format t "~T~T[INFO] ~a~%"
-              (node-info-list node))
-      (format t "~%")
-      )
+(defun gather-api-docs ()
+  (let ((results '()))
+    (docparser:do-packages (pkg *docparser-index*)
+      (let ((pkg-name (docparser:package-index-name pkg))
+            (pkg-doc  (docparser:package-index-docstring pkg))
+            (pkg-symbols '()))
+        ;;
+        (docparser:do-nodes (node pkg)
+          (appendf pkg-symbols
+                   (list (list :name (docparser:node-name node)
+                               :type (type-keyword node)
+                               :docstring (docparser:node-docstring node)
+                               :info (node-info-list node)))))
+        ;;
+        (appendf results
+                 (list (list :pkg-name pkg-name
+                             :docstring pkg-doc
+                             :symbols   pkg-symbols)))))
     ;;
-    (format t "-----------------------------------------------------------~%")
-    ))
+    results))
 
 
 
+
+
+(defun print-html-anchor (text anchor-uri)
+  (format *out-stream* "<a name=\"~a\">~a</a>~%"
+          (quri:url-encode anchor-uri)
+          (cl-who:escape-string text)))
+
+
+(defvar *print-anchor-func* #'print-html-anchor)
+
+
+
+(defvar *toc* nil)
 
 
 
 
 (defun print-api-ref ()
+  (log:info "PRINT API-REF ...")
   ;; TODO
+  ;;(print *api-refs* *out-stream*)
   )
 
 
 (defun print-toc ()
   ;; TODO
+  (log:info "PRINT TOC ...")
+  (print *toc* *out-stream*)
   )
+
+
+
+
+(defmacro with-sections ((&key (v-section 'section)) &rest body)
+  `(dolist (,v-section (getf *seed-plist* :sections))
+     ,@body))
+
+
+(defun find+apply (prefix sym &rest args)
+  (apply (-> sym
+             string
+             (format nil "~a~a" prefix %)
+             string-upcase
+             intern)
+         args))
+
+
+;; TODO child-sections / recur
+
+(defmacro toc-appendf (place &key text anchor)
+  `(progn (appendf ,place (list (list :text ,text
+                               :anchor ,anchor)))
+          ,place))
 
 
 (defun build-toc ()
-  ;; TODO
-  )
+  (let ((toc nil))
+    (with-sections (:v-section section)
+                   (if (keywordp section)
+                       t
+                       ;; else:
+                       (toc-appendf toc :text section :anchor section))
+    toc)))
+
+
+
+;;; section.1
+;;; section.2
+;;; ...
+;;; api-ref / pkg-1
+;;; api-ref / pkg-1 / symbol-1 = type-1
+;;; api-ref / pkg-1 / symbol-1 = type-2
 
 
 (defun print-sections ()
   ;; (format *out-stream* "~a ~A~%" *seed-plist* *output-pn*)
-  (dolist (section (getf *seed-plist* :sections))
-    (if (keywordp section)
-        (case section
-          (:toc (print-doc))
-          (:api-ref (print-api-ref))
-          ;; They told me I could be anything so I...:
-          (t (funcall (-> section
-                        string
-                        (format nil "print-~a" %)
-                        string-upcase
-                        intern))
-        ;; else: just a section
-        (let ((in-pn
-                (merge-pn-with-asdf-system-path section *system-name*)))
-          (copy-file-into-stream in-pn *out-stream*)))))))
+  (with-sections (:v-section section)
+                 (if (keywordp section)
+                     (case section
+                       (:toc (print-toc))
+                       (:api-ref (print-api-ref))
+                       ;; They told me I could be anything so I...:
+                       (t (find+apply "print-" section)))
+                     ;; else: just a section
+                     (let ((in-pn
+                             (merge-pn-with-asdf-system-path section *system-name*)))
+                       (log:debug "COPYING FROM: ~a" in-pn)
+                       (copy-file-into-stream in-pn *out-stream*)))))
+
+
+(defun init-logger ()
+  (log:config
+   :debug
+   ;; :notime
+   ;; :nofile
+   ;; :nopackage
+   ;; :nopretty
+   ;; :1line
+   ))
 
 
 
 (defun build-doc
     (system-name
      &key
-       seed-package-name
+       seed-symbol
        (seed-prop-name :doqumen)
        (output-file #p"docs/index.md"))
   "Build it!"
   ;;
+  (init-logger)
+  ;;
+  (log:info "LOADING SYSTEM: ~a" system-name)
   (asdf:find-system system-name)
   ;;
   (let* ((*system-name* system-name)
          (*output-pn* (merge-pn-with-asdf-system-path output-file
                                                       system-name))
-         (*seed-package-name* seed-package-name)
+         (*seed-symbol* (or seed-symbol system-name))
          (*seed-prop-name*    seed-prop-name)
-         (*seed-plist* (seed-plist-from-package-name
-                        :prop-name seed-prop-name)))
+         (*seed-plist* (seed-plist)))
+    ;;
+    (log:expr *output-pn*)
+    (log:expr *seed-symbol*)
+    (log:expr *seed-prop-name*)
+    (log:expr *seed-plist*)
     (assert *seed-plist* (*seed-plist*))
-    (ensure-directories-exist *output-pn*)
-    (uiop:with-output-file (*out-stream*
-                            *output-pn*
-                            :if-exists :supersede)
-      (let ((*docparser-index* (docparser:parse *system-name*)))
-        (build-toc)
-        (print-sections)
-        ))))
+    ;;
+    (log:info "DOC-PARSING: ~a ..." *system-name*)
+    (let ((*docparser-index* (docparser:parse *system-name*)))
+      (log:info "GATHERING API-DOCS ...")
+      (let ((*api-refs* (gather-api-docs)))
+        (log:info "BUILDING TOC ...")
+        (let ((*toc* (build-toc)))
+          ;;
+          (log:info "ENSURE-DIR: ~a ..." *output-pn*)
+          (ensure-directories-exist *output-pn*)
+          (log:info "WRITING: ~a ..." *output-pn*)
+          (uiop:with-output-file (*out-stream*
+                                  *output-pn*
+                                  :if-exists :supersede)
+            (print-sections)))))))
 
 
 
@@ -357,19 +437,22 @@
 
 ;;; EXAMPLE: ... how it does "doqumen" itself:
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  ;; ``seed-plist''
+  ;; Same keyword with name of ASDF-system:
   (setf (get :doqumen :doqumen)
-        `(
-          ;; sections to be copied into:
-          :sections
-          (,#p"src/01-title.md"
-              :toc                      ; special-section `toc'
-              ,#p"src/02-intro.md"
-              :api-ref                  ; special-section `api-ref'
-              )
-          )))
+        `(:sections (
+                     ,#p"src/01-title.md"
+                     :toc
+                     (
+                      ;; 1st item in a list is heading.
+                      ,#p"src/02-intro.md"
+                      ;; ...rests are subheadings:
+                      ,#p"src/02-a-rationale.md"
+                      )
+                     :api-ref
+                     ))))
 
 
 
 
 
+;;; TODO defpkg:export

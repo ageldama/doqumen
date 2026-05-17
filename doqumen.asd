@@ -3,18 +3,14 @@
   :author "Jonghyouk Yun"
   :mailto "ageldama@gmail.com"
   :license "MIT"
-  :depends-on (
-               :uiop
+  :depends-on (:uiop
                :asdf
                :rutils
                :docparser
-               )
+               :log4cl
+               :quri :cl-who)
   :components ((:module "src"
                 :serial t
                 :components
-                (
-                 (:file "doqumen")
-                 ))
-               )
-  :description "Yet another Lisp documentation generator, but it's way more dumber than others"
-  )
+                ((:file "doqumen"))))
+  :description "Yet another Lisp documentation generator, but it's way more dumber than others")
