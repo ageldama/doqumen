@@ -7,6 +7,7 @@
                :uiop
                :asdf
                :rutils
+               :docparser
                )
   :components ((:module "src"
                 :serial t
