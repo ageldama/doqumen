@@ -6,7 +6,7 @@
   :depends-on (:uiop :asdf :rutils :str :cl-ppcre
                :docparser
                :log4cl :iterate
-               :quri :cl-who)
+               :md5 :cl-who)
   :components ((:module "src"
                 :serial t
                 :components

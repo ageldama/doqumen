@@ -60,9 +60,6 @@
 
 
 
-;; TODO api-refs: printer function
-
-
 (defmethod type-keyword (node) :unknown)
 
 (defmethod type-keyword ((node docparser:cffi-function)) :cffi-function)
@@ -284,7 +281,27 @@
 
 
 
-(defparameter *anchor-uri-encode-func*  #'quri:url-encode)
+(defun slugify (string)
+  (let* ((lowercase (string-downcase string))
+         (cleaned (cl-ppcre:regex-replace-all "[^a-z0-9\\s-]" lowercase ""))
+         (trimmed (string-trim " " cleaned))
+         (slugged (cl-ppcre:regex-replace-all "[\\s-]+" trimmed "-")))
+    slugged))
+
+(defun bytes-to-hex (bytes)
+  (with-output-to-string (out)
+    (loop for byte across bytes
+          do (format out "~2,'0x" byte))))
+
+(defun slugify+md5hex (string)
+  (format nil "~a_~a"
+          (slugify string)
+          (-> string
+              md5:md5sum-string
+              bytes-to-hex)))
+
+
+(defparameter *anchor-uri-encode-func*  #'slugify+md5hex)
 
 
 (defun print-html-anchor (text anchor-uri)
