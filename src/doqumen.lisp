@@ -53,10 +53,16 @@
     ))
 
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (setf (get :doqumen :doqumen)
+        (list :sections
+              (list #p"src/01-title.md"
+                    #p"src/02-intro.md"))))
 
 
-;; TODO title
+
 ;; TODO sections
+;; TODO toc
+
 ;; TODO api-refs
 ;; TODO api-refs: ordering?
-;; TODO toc
