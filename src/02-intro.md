@@ -1,8 +1,8 @@
 # Introduction
 
-Are you stupid just like me? Gud. 🫠
+Are you stupid enough just like me do? Goood. 🫠
 
-Are you tired of all the too smart Lisp libraries and tools? Sad. 😂
+Are you tired of all the outsmart Lisp libraries and tools? Sad. 😂
 
 Then just use this stupid tool. ``Here your''. 🔨
 
