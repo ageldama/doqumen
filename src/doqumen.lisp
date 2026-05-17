@@ -55,9 +55,7 @@
 
 (defvar *api-refs* nil)
 
-(defvar *api-ref-anchor-prefix* "api-ref-")
-
-(defvar *api-ref-print-anchor?* t)
+(defvar *api-ref-anchor-prefix* "API-")
 
 
 
@@ -312,27 +310,41 @@
   )
 
 
+;; TODO section - title?
 
-(defvar *print-toc-title* "# Table of Contents")
+
+(defvar *toc-heading* "# Table of Contents")
+
+(defvar *toc-title* "Table of Contents")
+
+(defvar *toc-anchor* "TOC")
+
+
+(defvar *api-ref-heading* "# APIs")
+
+(defvar *api-ref-title* "APIs")
+
+(defvar *api-ref-anchor* "API-REF")
+
 
 
 (defun print-toc-as-markdown
-    (toc &key (out-stream *out-stream*) (level 1))
+    (toc &key (level 1))
   (when (eq 1 level)
-    (format out-stream "~A~%~%" *print-toc-title*))
+    (funcall *print-anchor-func* *toc-title* *toc-anchor*)
+    (format *out-stream* "~A~%~%" *print-toc-heading*))
   (dolist (e toc)
-    ;; TODO skip keyword?
-    (format out-stream "~v@{~A~:*~}" level "  ")
-    (format out-stream "1. [~A](~A)~%"
+    ;; TODO  keyword handling
+    (format *out-stream* "~v@{~A~:*~}" level "  ")
+    (format *out-stream* "1. [~A](~A)~%"
             (getf e :text)
             (funcall *anchor-uri-encode-func*
                      (format nil "~A" (getf e :anchor))))
     (when (getf e :children)
       (print-toc-as-markdown (getf e :children)
-                             :out-stream out-stream
                              :level (1+ level))))
   (when (eq 1 level)
-    (format out-stream "~%")))
+    (format *out-stream* "~%")))
 
 
 
@@ -411,6 +423,7 @@
           (let ((in-pn
                   (merge-pn-with-asdf-system-path section *system-name*)))
             (log:debug "COPYING FROM: ~a" in-pn)
+            ;; TODO print-anchor
             (copy-file-into-stream in-pn *out-stream*)))))))
 
 
