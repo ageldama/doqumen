@@ -366,7 +366,7 @@
          (setf text (format nil "~A" text)
                anchor (format nil "~A" anchor))))
       ;;
-      (format *out-stream* "1. [~A](~A)~%"
+      (format *out-stream* "1. [~A](#~A)~%"
               text
               (funcall *anchor-uri-encode-func* anchor)))
     ;;
