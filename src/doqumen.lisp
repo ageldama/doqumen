@@ -143,7 +143,7 @@
                 collect (node-info-list slot))))
 
 (defmethod node-info-list ((node docparser:cffi-union))
-  ;; FIXME: ->nil
+  "FIXME: ->nil"
   (list
    :docstring (docparser:node-docstring node)
    :variants (docparser:cffi-union-variants node)))
@@ -183,12 +183,12 @@
 (defmethod node-info-list ((node docparser:method-node))
   (list
    :lambda-list
-   (docparser:operator-lambda-list node))
-  :setfp
-  (docparser:operator-setf-p node)
-   ;; FIXME: ->nil
+   (docparser:operator-lambda-list node)
+   :setfp
+   (docparser:operator-setf-p node)
    :qualifiers
-  (docparser:method-qualifiers node))
+   (docparser:method-qualifiers node)
+   ))
 
 (defmethod node-info-list ((node docparser:variable-node))
   (list
@@ -486,6 +486,7 @@
     (let ((*docparser-index* (docparser:parse *system-name*)))
       (log:info "GATHERING API-DOCS ...")
       (let ((*api-refs* (gather-api-docs)))
+        (expand-api-refs-for-toc *api-refs*)
         (log:info "BUILDING TOC ...")
         (let ((*toc* (build-toc)))
           ;;
@@ -497,6 +498,55 @@
                                   :if-exists :supersede)
             (print-sections)))))))
 
+
+
+
+(defun ->upcase (val)
+  (string-upcase (format nil "~A" val)))
+
+(defun ->keyword (val)
+  (intern (->upcase val) :keyword))
+
+
+(defun symbol-scope (name pkg-name)
+  (nth-value 1 (find-symbol (->upcase name)
+                            (->keyword pkg-name))))
+
+
+
+(defun expand-api-refs-for-toc (api-refs)
+  (dolist (pkg api-refs)
+    (rutils:nconcf
+     pkg
+     (list :text (format nil "PACKAGE: ~A" (getf pkg :pkg-name))
+           :anchor (format nil "~APACKAGE-~A"
+                           *api-ref-anchor-prefix*
+                           (getf pkg :pkg-name)
+                           )))
+    ;;
+    (dolist (symb (getf pkg :symbols))
+      (let ((type (getf symb :type))
+            (name (getf symb :name)))
+        (case type
+          (:method
+              (rutils:nconcf
+               symb
+               (list :text (format nil "~A: ~A ~A"
+                            type name (getf (getf symb :info) :lambda-list))
+                     :anchor (format nil "~A~A-~A-~A"
+                              *api-ref-anchor-prefix*
+                            type name (getf (getf symb :info) :lambda-list)))))
+          (t
+           (rutils:nconcf
+            symb
+            (list :text (format nil "~A: ~A" type name)
+                  :anchor (format nil "~A~A-~A"
+                                  *api-ref-anchor-prefix*
+                                  type name)))))))))
+
+
+           
+(defvar xxx nil)
 
 
 
