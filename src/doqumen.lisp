@@ -1,6 +1,7 @@
 (defpackage #:doqumen
   (:use #:cl #:iterate)
   (:import-from #:rutils #:-> #:% #:appendf)
+  (:import-from #:rutils.anaphora #:awhen #:it)
   (:export :build-doc))
 
 (in-package :doqumen)
@@ -234,9 +235,6 @@
    :initform  (docparser:slot-initform node)
    :allocation (docparser:slot-allocation node)))
 
-
-
-
 (defmethod node-info-list ((node docparser:class-node))
   (list
    :docstring (docparser:node-docstring node)
@@ -318,18 +316,148 @@
 
 
 
+(defgeneric print-api-ref-body-as-markdown (type api-ref out-stream))
+
+(defmethod print-api-ref-body-as-markdown ((type t) api-ref out-stream)
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~A" it)))
+
+;; TODO cffi-function
+;; TODO cffi-type
+;; TODO cffi-slot
+;; TODO cffi-struct
+;; TODO cffi-union
+;; TODO cffi-enum
+;; TODO cffi-bitfield
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :function)) api-ref out-stream)
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :macro)) api-ref out-stream)
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :type)) api-ref out-stream)
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :generic-function))
+                                           api-ref out-stream)
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :method))
+                                           api-ref out-stream)
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (format out-stream "- QUALIFIERS: `~W`~%"
+          (getf (getf api-ref :info) :qualifiers))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :variable))
+                                           api-ref out-stream)
+  (format out-stream "- INITIAL-VALUE: `~W`~%"
+          (getf (getf api-ref :info) :variable-initial-value))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :struct))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- SLOTS:~%")
+    (dolist (slot (getf info :slots))
+      (print-api-ref-body-as-markdown :struct-slot slot out-stream))
+    (format out-stream "- CONC-NAME: `~W`~%" (getf info :conc-name))
+    (format out-stream "- CONSTRUCTOR: `~W`~%" (getf info :constructor))
+    (format out-stream "- COPIER: `~W`~%" (getf info :copier))
+    (format out-stream "- INCLUDE-NAME: `~W`~%" (getf info :include-name))
+    (format out-stream "- INCLUDE-SLOTS: `~W`~%" (getf info :include-slots))
+    (format out-stream "- INITIAL-OFFSET: `~W`~%" (getf info :initial-offset))
+    (format out-stream "- NAMED: `~W`~%" (getf info :named))
+    (format out-stream "- PREDICATE: `~W`~%" (getf info :predicate))
+    (format out-stream "- PRINT-FUNCTION: `~W`~%" (getf info :print-function))
+    (format out-stream "- PRINT-OBJECT: `~W`~%" (getf info :print-object))
+    (format out-stream "- TYPE: `~W`~%" (getf info :type)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :struct-slot))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "   - SLOT `~A` / TYPE: `~A` / READ-ONLY? `~W`~%"
+            (getf info :name) (getf info :type) (getf info :read-only))
+    (format out-stream "      - INITFORM: `~W`~%" (getf info :initform))
+    (format out-stream "      - ACCESSOR: `~W`~%" (getf info :ACCESSOR))))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :class))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- SLOTS:~%")
+    (dolist (slot (getf info :slots))
+      (print-api-ref-body-as-markdown :class-slot slot out-stream))
+    (format out-stream "- SUPERCLASSES: `~W`~%" (getf info :superclasses))
+    (format out-stream "- METACLASS: `~W`~%" (getf info :metaclass))
+    (format out-stream "- DEFAULT-INITARGS: `~W`~%" (getf info :default-initargs))
+    (format out-stream "- TYPE: `~W`~%" (getf info :type)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :class-slot))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "   - SLOT `~A` / TYPE: `~A`~%"
+            (getf info :name) (getf info :type))
+    (format out-stream "      - ALLOCATION: `~W`~%" (getf info :allocation))
+    (format out-stream "      - INITFORM: `~W`~%" (getf info :initform))
+    (format out-stream "      - INITARG: `~W`~%" (getf info :initarg))
+    (format out-stream "      - ACCESSOR: `~W`~%" (getf info :accessor))
+    (format out-stream "      - READERS: `~W`~%" (getf info :readers))
+    (format out-stream "      - WRITERS: `~W`~%" (getf info :writer))
+    (awhen (getf api-ref :docstring)
+      (format out-stream "      - ~A~%" it))))
+
+
+
+;; TODO condition?
+
 
 
 (defun print-api-refs-as-markdown (api-refs)
+  "print api-refs as markdown"
   (funcall *print-anchor-func* "" *api-refs-anchor*)
   (format *out-stream* "~A~%~%" *api-refs-heading*)
   (dolist (pkg api-refs)
     (funcall *print-anchor-func* "" (getf pkg :anchor))
     (format *out-stream* "## ~A~%~%" (getf pkg :text))
+    (awhen (getf pkg :docstring)
+      (format *out-stream* "~A~%" it))
     ;;
     (dolist (symb (getf pkg :symbols))
       (funcall *print-anchor-func* "" (getf symb :anchor))
       (format *out-stream* "### ~A~%~%" (getf symb :text))
+      (print-api-ref-body-as-markdown
+       (getf symb :type) symb *out-stream*)
+      (format *out-stream* "~%~%")
       )))
 
 
@@ -386,9 +514,8 @@
               text
               (funcall *anchor-uri-encode-func* anchor)))
     ;;
-    (when (getf e :children)
-      (print-toc-as-markdown (getf e :children)
-                             :level (1+ level))))
+    (awhen (getf e :children)
+      (print-toc-as-markdown it :level (1+ level))))
   ;;
   (when (eq 1 level)
     (format *out-stream* "~%")))
@@ -547,6 +674,16 @@
 
 
 
+(defun remove-newlines (s)
+  (remove #\Newline s))
+
+
+(defun ->one-line-string (val)
+  (-> val
+      (format nil "~A" %)
+      remove-newlines))
+
+
 (defun expand-api-refs-for-toc (api-refs)
   (dolist (pkg api-refs)
     (rutils:nconcf
@@ -564,10 +701,14 @@
               (rutils:nconcf
                symb
                (list :text (format nil "~A: ~A ~A"
-                            type name (getf (getf symb :info) :lambda-list))
+                            type name
+                            (->one-line-string
+                             (getf (getf symb :info) :lambda-list)))
                      :anchor (format nil "~A~A-~A-~A"
                               *api-ref-anchor-prefix*
-                            type name (getf (getf symb :info) :lambda-list)))))
+                              type name
+                              (->one-line-string
+                               (getf (getf symb :info) :lambda-list))))))
           (t
            (rutils:nconcf
             symb

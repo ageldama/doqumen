@@ -73,6 +73,18 @@
          1. [FUNCTION: PRINT-HTML-ANCHOR](#api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784)
          1. [VARIABLE: *PRINT-ANCHOR-FUNC*](#api-variable-print-anchor-func_3B67F8E87653DE35F022173DADEE4D1F)
          1. [VARIABLE: *TOC*](#api-variable-toc_9961AEB3C770DB1FA924E743D2E85628)
+         1. [GENERIC-FUNCTION: PRINT-API-REF-BODY-AS-MARKDOWN](#api-generic-function-print-api-ref-body-as-markdown_559261591E44ADBBF851BD495517BAFC)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE T) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-t-api-ref-out-stream_012D7BC9F999443D9C2785FE0EF9B915)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL FUNCTION)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-function-api-ref-out-stream_40094AB18D0CD176CB226A3749B4E863)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL MACRO)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-macro-api-ref-out-stream_EED916113D9247DBA534712162E12054)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL TYPE)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-type-api-ref-out-stream_517549E4B9CDBBBA2FDA182A85BA028D)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL GENERIC-FUNCTION)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-generic-function-api-ref-out-stream_05F068B144E3AF8187D150598C82E9F3)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL METHOD)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-method-api-ref-out-stream_0EE473475086BBED50D0266615E46CFA)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL VARIABLE)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-variable-api-ref-out-stream_7E928D5F1C568DBA53A4AC1671AAD036)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL STRUCT)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-struct-api-ref-out-stream_1A3FED495C74767B9C8850DC12E5DB7D)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL STRUCT-SLOT)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-struct-slot-api-ref-out-stream_801C70FEBF9B967C4524CAC5F84951AD)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL CLASS)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-class-api-ref-out-stream_9BF2CF8D4E23C3069578B193DA0BDFB9)
+         1. [METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL CLASS-SLOT)) API-REF OUT-STREAM)](#api-method-print-api-ref-body-as-markdown-type-eql-class-slot-api-ref-out-stream_DC54EA9E1CFC5D9E5FCD722861889D3E)
          1. [FUNCTION: PRINT-API-REFS-AS-MARKDOWN](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
          1. [VARIABLE: *PRINT-API-REFS-FUNC*](#api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD)
          1. [FUNCTION: PRINT-API-REF](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
@@ -97,6 +109,8 @@
          1. [FUNCTION: ->UPCASE](#api-function-upcase_CCF2CC3ADBDCECFCFCCA3C9EF48E588F)
          1. [FUNCTION: ->KEYWORD](#api-function-keyword_A736D65A0A02C5991BE183AB516D45C9)
          1. [FUNCTION: SYMBOL-SCOPE](#api-function-symbol-scope_412C0506D16DF16942F8BC87368649D1)
+         1. [FUNCTION: REMOVE-NEWLINES](#api-function-remove-newlines_DD09D2F83F240ABE9404AF982E96D4E9)
+         1. [FUNCTION: ->ONE-LINE-STRING](#api-function-one-line-string_267F76BB6C7043DE104C364DF4D1FDED)
          1. [FUNCTION: EXPAND-API-REFS-FOR-TOC](#api-function-expand-api-refs-for-toc_E02914B2A0E00F57C6C3201FC5C10C49)
          1. [FUNCTION: API-REFS->TOC](#api-function-api-refs-toc_80BE9DDE1BAE29FBEC1F4D466168E977)
 
@@ -123,258 +137,734 @@ I needed it, but I don't want to use anything else.
 <a name="api-function-directory-pn_F86EFC279522D457F3F0B629367DE218"></a>
 ### FUNCTION: DIRECTORY-PN
 
+- LAMBDA LIST: `(DOQUMEN::PN)`
+- SETF? `NIL`
+
+
 <a name="api-function-system-definition-dir_5237ACD564C1A533380FD02E9F787927"></a>
 ### FUNCTION: SYSTEM-DEFINITION-DIR
+
+- LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME)`
+- SETF? `NIL`
+
 
 <a name="api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5"></a>
 ### FUNCTION: MERGE-PN-WITH-ASDF-SYSTEM-PATH
 
+- LAMBDA LIST: `(DOQUMEN::PN DOQUMEN::SYSTEM-NAME)`
+- SETF? `NIL`
+
+
 <a name="api-function-copy-file-into-stream_8DBD442662A3B6BA8275C6D6E207933C"></a>
 ### FUNCTION: COPY-FILE-INTO-STREAM
+
+- LAMBDA LIST: `(DOQUMEN::IN-FILE DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+
 
 <a name="api-variable-system-name_46AAC4E1EEEE25216FB3CBFF5368E088"></a>
 ### VARIABLE: *SYSTEM-NAME*
 
+- INITIAL-VALUE: `NIL`
+
+
 <a name="api-variable-seed-symbol_079FF7EC29795BDDCDE2FD42A6B96CAE"></a>
 ### VARIABLE: *SEED-SYMBOL*
+
+- INITIAL-VALUE: `NIL`
+
 
 <a name="api-variable-seed-prop-name_BA665738B8D0700D8C80349681934608"></a>
 ### VARIABLE: *SEED-PROP-NAME*
 
+- INITIAL-VALUE: `NIL`
+
+
 <a name="api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1"></a>
 ### VARIABLE: *SEED-PLIST*
+
+- INITIAL-VALUE: `NIL`
+
 
 <a name="api-function-seed-plist_762B2789D205C14E6052E6F187C7E890"></a>
 ### FUNCTION: SEED-PLIST
 
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
+
 <a name="api-variable-output-pn_4A294A5AA0AE1138CCCAE74D5580BE40"></a>
 ### VARIABLE: *OUTPUT-PN*
+
+- INITIAL-VALUE: `NIL`
+
 
 <a name="api-variable-out-stream_6DD76B70F00D1990F3A221CD63A013D9"></a>
 ### VARIABLE: *OUT-STREAM*
 
+- INITIAL-VALUE: `NIL`
+
+
 <a name="api-variable-docparser-index_877CBCF365D078599E70822CFC305205"></a>
 ### VARIABLE: *DOCPARSER-INDEX*
+
+- INITIAL-VALUE: `NIL`
+
 
 <a name="api-variable-api-refs_9E5E4667BFE85E2047F2825526482CC2"></a>
 ### VARIABLE: *API-REFS*
 
+- INITIAL-VALUE: `NIL`
+
+
 <a name="api-variable-api-ref-anchor-prefix_B40511D325F89B39AD8C7664F29CE9EC"></a>
 ### VARIABLE: *API-REF-ANCHOR-PREFIX*
+
+- INITIAL-VALUE: `"API-"`
+
 
 <a name="api-method-type-keyword-node_F9C04FE22297149AD52F4CFD7B15606E"></a>
 ### METHOD: TYPE-KEYWORD (NODE)
 
+- LAMBDA LIST: `(DOQUMEN::NODE)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-cffi-function_F2016AEF11FA0AA386EA0971D636A317"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-FUNCTION))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-FUNCTION))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-cffi-type_8F1DACFFBB3AB36E5F1C4867BDBCE779"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-TYPE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-TYPE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-cffi-slot_A96FE07903D71A7D33210E57D092ED61"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-SLOT))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-SLOT))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-cffi-struct_31BAE4212568559A8DA53506FED89DA5"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-STRUCT))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-STRUCT))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-cffi-union_9C146995DBBC5B9276C5CF5DED781D7F"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-UNION))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-UNION))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-cffi-enum_E2881E335C997DFDB31C72B7859D1A55"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-ENUM))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-ENUM))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-cffi-bitfield_458ED88CB5DD1594272BD312076332D8"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CFFI-BITFIELD))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-BITFIELD))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-function-node_494EA4D786BD1F29ECC9956CBD7B25F9"></a>
 ### METHOD: TYPE-KEYWORD ((NODE FUNCTION-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:FUNCTION-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-macro-node_67F9DD3A40CC2613C5B4659ACE3C78D2"></a>
 ### METHOD: TYPE-KEYWORD ((NODE MACRO-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:MACRO-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-generic-function-node_9C37E4E25742AFCE5C9F31E201742CDF"></a>
 ### METHOD: TYPE-KEYWORD ((NODE GENERIC-FUNCTION-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:GENERIC-FUNCTION-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-method-node_4F85CBCA1E7C2A5F417CEB4406EBDE75"></a>
 ### METHOD: TYPE-KEYWORD ((NODE METHOD-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:METHOD-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-variable-node_B12A2F31919540690519E18F3FEFE36E"></a>
 ### METHOD: TYPE-KEYWORD ((NODE VARIABLE-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:VARIABLE-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-struct-slot-node_BC27E9959ECA5614E6A8A9BBF90AF419"></a>
 ### METHOD: TYPE-KEYWORD ((NODE STRUCT-SLOT-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-SLOT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-struct-node_B19272E8B90F3D869BD6E40CDFC088E6"></a>
 ### METHOD: TYPE-KEYWORD ((NODE STRUCT-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-condition-node_7711F7740E8B3276EF10BA1A33BD8F08"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CONDITION-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CONDITION-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-class-slot-node_1EEBAE9DD3933C0643B7982644D11CD6"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CLASS-SLOT-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-SLOT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-type-keyword-node-class-node_1C148BB2FC6568EC22A8AEFE3F4504AE"></a>
 ### METHOD: TYPE-KEYWORD ((NODE CLASS-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-type-keyword-node-type-node_7A6DB61B89D90701381B1269E2B495B7"></a>
 ### METHOD: TYPE-KEYWORD ((NODE TYPE-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:TYPE-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node_4EC2E7004BB3D661CEE9D3EEC37BA223"></a>
 ### METHOD: NODE-INFO-LIST (NODE)
+
+- LAMBDA LIST: `(DOQUMEN::NODE)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-operator-node_57517217D45BB1A8767AD27621E8D714"></a>
 ### METHOD: NODE-INFO-LIST ((NODE OPERATOR-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:OPERATOR-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-cffi-function_B2E83B7D0ADF7006A09576C73B532C43"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-FUNCTION))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-FUNCTION))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-cffi-type_A3387640135B100714D3E36E1676DB06"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-TYPE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-TYPE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-cffi-slot_6140D072FDACCE9CCEDEEE3C17BFB16A"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-SLOT))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-SLOT))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-cffi-struct_46E9F277A06A4FE9AA6A1C89CCE831CD"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-STRUCT))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-STRUCT))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-cffi-union_AFDA00F15CA6D95A44134E89D66F512D"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-UNION))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-UNION))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-cffi-enum_E8F5F2C89ED2A587A58E9C1A6CE36E89"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-ENUM))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-ENUM))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-cffi-bitfield_83DC4E4287DA8868F9C70C1AE0730DDE"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CFFI-BITFIELD))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-BITFIELD))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-function-node_B25327B4820BB6BD0B1E1E46FE51B966"></a>
 ### METHOD: NODE-INFO-LIST ((NODE FUNCTION-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:FUNCTION-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-macro-node_F59C2714B0E3C8091949EDAD87F0E4C8"></a>
 ### METHOD: NODE-INFO-LIST ((NODE MACRO-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:MACRO-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-generic-function-node_AA2451D62C50C9F7D45A28BEC88B3B34"></a>
 ### METHOD: NODE-INFO-LIST ((NODE GENERIC-FUNCTION-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:GENERIC-FUNCTION-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-method-node_27C51F89D2E1723E71F29FD213BAAE40"></a>
 ### METHOD: NODE-INFO-LIST ((NODE METHOD-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:METHOD-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-variable-node_728BD18B5BC42982A36E5AF2AE27FC81"></a>
 ### METHOD: NODE-INFO-LIST ((NODE VARIABLE-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:VARIABLE-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-struct-slot-node_140879081B5711996302E228D12029C2"></a>
 ### METHOD: NODE-INFO-LIST ((NODE STRUCT-SLOT-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-SLOT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-struct-node_02D0C5A20C9C13BDA6346044DE86E46B"></a>
 ### METHOD: NODE-INFO-LIST ((NODE STRUCT-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-class-slot-node_60765F4BB0236A3E6084F2B29CBFEFB3"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CLASS-SLOT-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-SLOT-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-method-node-info-list-node-class-node_F37BA67BE2F5C3C9CDE0482279C2C842"></a>
 ### METHOD: NODE-INFO-LIST ((NODE CLASS-NODE))
 
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
 <a name="api-method-node-info-list-node-type-node_D55A5E3B3E6DB9358BF3705F08177C67"></a>
 ### METHOD: NODE-INFO-LIST ((NODE TYPE-NODE))
+
+- LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:TYPE-NODE))`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-function-gather-api-docs_EF308D825B4F9CDAEC730DEDC0B5B010"></a>
 ### FUNCTION: GATHER-API-DOCS
 
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
+
 <a name="api-function-slugify_FB5C5450CFC6AB8136CB904EA95E43F8"></a>
 ### FUNCTION: SLUGIFY
+
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
 
 <a name="api-function-bytes-to-hex_241CF54D510AF0D56A2761D0988AFDB4"></a>
 ### FUNCTION: BYTES-TO-HEX
 
+- LAMBDA LIST: `(DOQUMEN::BYTES)`
+- SETF? `NIL`
+
+
 <a name="api-function-slugifymd5hex_7620F9D4E8A3275BD8E07C86AFBD9BC3"></a>
 ### FUNCTION: SLUGIFY+MD5HEX
+
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
 
 <a name="api-variable-anchor-uri-encode-func_849B879FA1EB9A555D52A0686A6177EF"></a>
 ### VARIABLE: *ANCHOR-URI-ENCODE-FUNC*
 
+- INITIAL-VALUE: `#'DOQUMEN::SLUGIFY+MD5HEX`
+
+
 <a name="api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784"></a>
 ### FUNCTION: PRINT-HTML-ANCHOR
+
+- LAMBDA LIST: `(DOQUMEN::TEXT DOQUMEN::ANCHOR-URI)`
+- SETF? `NIL`
+
 
 <a name="api-variable-print-anchor-func_3B67F8E87653DE35F022173DADEE4D1F"></a>
 ### VARIABLE: *PRINT-ANCHOR-FUNC*
 
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-HTML-ANCHOR`
+
+
 <a name="api-variable-toc_9961AEB3C770DB1FA924E743D2E85628"></a>
 ### VARIABLE: *TOC*
+
+- INITIAL-VALUE: `NIL`
+
+
+<a name="api-generic-function-print-api-ref-body-as-markdown_559261591E44ADBBF851BD495517BAFC"></a>
+### GENERIC-FUNCTION: PRINT-API-REF-BODY-AS-MARKDOWN
+
+- LAMBDA LIST: `(TYPE DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-t-api-ref-out-stream_012D7BC9F999443D9C2785FE0EF9B915"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE T) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE T) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-function-api-ref-out-stream_40094AB18D0CD176CB226A3749B4E863"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL FUNCTION)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :FUNCTION)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-macro-api-ref-out-stream_EED916113D9247DBA534712162E12054"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL MACRO)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :MACRO)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-type-api-ref-out-stream_517549E4B9CDBBBA2FDA182A85BA028D"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL TYPE)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :TYPE)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-generic-function-api-ref-out-stream_05F068B144E3AF8187D150598C82E9F3"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL GENERIC-FUNCTION)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :GENERIC-FUNCTION)) DOQUMEN::API-REF
+                 DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-method-api-ref-out-stream_0EE473475086BBED50D0266615E46CFA"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL METHOD)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :METHOD)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-variable-api-ref-out-stream_7E928D5F1C568DBA53A4AC1671AAD036"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL VARIABLE)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :VARIABLE)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-struct-api-ref-out-stream_1A3FED495C74767B9C8850DC12E5DB7D"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL STRUCT)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :STRUCT)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-struct-slot-api-ref-out-stream_801C70FEBF9B967C4524CAC5F84951AD"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL STRUCT-SLOT)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :STRUCT-SLOT)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-class-api-ref-out-stream_9BF2CF8D4E23C3069578B193DA0BDFB9"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL CLASS)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :CLASS)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
+
+<a name="api-method-print-api-ref-body-as-markdown-type-eql-class-slot-api-ref-out-stream_DC54EA9E1CFC5D9E5FCD722861889D3E"></a>
+### METHOD: PRINT-API-REF-BODY-AS-MARKDOWN ((TYPE (EQL CLASS-SLOT)) API-REF OUT-STREAM)
+
+- LAMBDA LIST: `((TYPE (EQL :CLASS-SLOT)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+- QUALIFIERS: `NIL`
+
 
 <a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
 ### FUNCTION: PRINT-API-REFS-AS-MARKDOWN
 
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
+print api-refs as markdown
+
 <a name="api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD"></a>
 ### VARIABLE: *PRINT-API-REFS-FUNC*
+
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
+
 
 <a name="api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0"></a>
 ### FUNCTION: PRINT-API-REF
 
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
+
 <a name="api-function-extract-first-heading-from-markdown-file_730F81E641FF151849099101832AAD4D"></a>
 ### FUNCTION: EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE
+
+- LAMBDA LIST: `(DOQUMEN::PN)`
+- SETF? `NIL`
+
 
 <a name="api-variable-toc-heading_774706828D2D5729A094D4897AACEC6F"></a>
 ### VARIABLE: *TOC-HEADING*
 
+- INITIAL-VALUE: `"# Table of Contents"`
+
+
 <a name="api-variable-toc-title_5001DD973F071A0844D3208CE43FA38F"></a>
 ### VARIABLE: *TOC-TITLE*
+
+- INITIAL-VALUE: `"Table of Contents"`
+
 
 <a name="api-variable-toc-anchor_28D41F0CA0E1EAF5301585D3020020D8"></a>
 ### VARIABLE: *TOC-ANCHOR*
 
+- INITIAL-VALUE: `"TOC"`
+
+
 <a name="api-variable-api-refs-heading_09684E836B4375D25D2D2960F9645F90"></a>
 ### VARIABLE: *API-REFS-HEADING*
+
+- INITIAL-VALUE: `"# APIs"`
+
 
 <a name="api-variable-api-refs-title_C093F46F4EFD545FDF07E0D2D6E3F2A2"></a>
 ### VARIABLE: *API-REFS-TITLE*
 
+- INITIAL-VALUE: `"APIs"`
+
+
 <a name="api-variable-api-refs-anchor_1C00BE77F7ACC4C7847E729521A2585A"></a>
 ### VARIABLE: *API-REFS-ANCHOR*
+
+- INITIAL-VALUE: `"API-REFS"`
+
 
 <a name="api-variable-section-file-title-func_695D2ADA3C31A10D52CBC87766B39C9F"></a>
 ### VARIABLE: *SECTION-FILE-TITLE-FUNC*
 
+- INITIAL-VALUE: `#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
+
+
 <a name="api-function-print-toc-as-markdown_D569F3A8D26A46027DB87F100A9FE258"></a>
 ### FUNCTION: PRINT-TOC-AS-MARKDOWN
+
+- LAMBDA LIST: `(DOQUMEN::TOC &KEY (DOQUMEN::LEVEL 1))`
+- SETF? `NIL`
+
 
 <a name="api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1"></a>
 ### VARIABLE: *PRINT-TOC-FUNC*
 
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
+
+
 <a name="api-function-print-toc_EB36BB057A5C71AD71517EF8249D9562"></a>
 ### FUNCTION: PRINT-TOC
+
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
 
 <a name="api-function-root-sections_EED5623E4F44AB8FB4B1CC6287FDB295"></a>
 ### FUNCTION: ROOT-SECTIONS
 
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
+
 <a name="api-function-findapply_FC403F0AA5B62FF959B9A6F625CE75EE"></a>
 ### FUNCTION: FIND+APPLY
+
+- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &REST DOQUMEN::ARGS)`
+- SETF? `NIL`
+
 
 <a name="api-macro-toc-appendf_F49CDAAA2277C1D5A2D8D9C535C79F88"></a>
 ### MACRO: TOC-APPENDF
 
+- LAMBDA LIST: `(DOQUMEN::PLACE &KEY DOQUMEN::TEXT DOQUMEN::ANCHOR
+                 DOQUMEN::CHILDREN)`
+- SETF? `NIL`
+
+
 <a name="api-function-build-toc_520A797A54D29A1F1925BC7D1A633FCC"></a>
 ### FUNCTION: BUILD-TOC
+
+- LAMBDA LIST: `(&KEY DOQUMEN::SECTIONS)`
+- SETF? `NIL`
+
 
 <a name="api-function-print-sections_CFCC198E774025A3E6B4D794881839A5"></a>
 ### FUNCTION: PRINT-SECTIONS
 
+- LAMBDA LIST: `(&KEY DOQUMEN::SECTIONS)`
+- SETF? `NIL`
+
+
 <a name="api-function-init-logger_8A1376922ED11E09BA06EA3CBE1CA814"></a>
 ### FUNCTION: INIT-LOGGER
+
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
 
 <a name="api-function-build-doc_312CA63E13E2B08CAE7D64B44CB089B7"></a>
 ### FUNCTION: BUILD-DOC
 
+- LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME &KEY DOQUMEN::SEED-SYMBOL
+                 (DOQUMEN::SEED-PROP-NAME :DOQUMEN)
+                 (DOQUMEN::OUTPUT-FILE #P"docs/index.md"))`
+- SETF? `NIL`
+
+Build it!
+
 <a name="api-function-upcase_CCF2CC3ADBDCECFCFCCA3C9EF48E588F"></a>
 ### FUNCTION: ->UPCASE
+
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
 
 <a name="api-function-keyword_A736D65A0A02C5991BE183AB516D45C9"></a>
 ### FUNCTION: ->KEYWORD
 
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
+
 <a name="api-function-symbol-scope_412C0506D16DF16942F8BC87368649D1"></a>
 ### FUNCTION: SYMBOL-SCOPE
+
+- LAMBDA LIST: `(DOQUMEN::NAME DOQUMEN::PKG-NAME)`
+- SETF? `NIL`
+
+
+<a name="api-function-remove-newlines_DD09D2F83F240ABE9404AF982E96D4E9"></a>
+### FUNCTION: REMOVE-NEWLINES
+
+- LAMBDA LIST: `(DOQUMEN::S)`
+- SETF? `NIL`
+
+
+<a name="api-function-one-line-string_267F76BB6C7043DE104C364DF4D1FDED"></a>
+### FUNCTION: ->ONE-LINE-STRING
+
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
 
 <a name="api-function-expand-api-refs-for-toc_E02914B2A0E00F57C6C3201FC5C10C49"></a>
 ### FUNCTION: EXPAND-API-REFS-FOR-TOC
 
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
+
 <a name="api-function-api-refs-toc_80BE9DDE1BAE29FBEC1F4D466168E977"></a>
 ### FUNCTION: API-REFS->TOC
+
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
 
