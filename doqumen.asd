@@ -3,11 +3,9 @@
   :author "Jonghyouk Yun"
   :mailto "ageldama@gmail.com"
   :license "MIT"
-  :depends-on (:uiop
-               :asdf
-               :rutils
+  :depends-on (:uiop :asdf :rutils :str :cl-ppcre
                :docparser
-               :log4cl
+               :log4cl :iterate
                :quri :cl-who)
   :components ((:module "src"
                 :serial t

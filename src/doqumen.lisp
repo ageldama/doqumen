@@ -1,5 +1,5 @@
 (defpackage #:doqumen
-  (:use #:cl #:rutils)
+  (:use #:cl #:rutils #:iterate)
   (:export :build-doc))
 
 (in-package :doqumen)
@@ -60,8 +60,7 @@
 
 
 ;; TODO api-refs: printer function
-;; TODO toc: printer-function
-
+;; TODO api-refs->toc
 
 
 (defmethod type-keyword (node) :unknown)
@@ -285,7 +284,7 @@
 
 
 
-(defvar *anchor-uri-encode-func*  #'quri:url-encode)
+(defparameter *anchor-uri-encode-func*  #'quri:url-encode)
 
 
 (defun print-html-anchor (text anchor-uri)
@@ -294,7 +293,7 @@
           (cl-who:escape-string text)))
 
 
-(defvar *print-anchor-func* #'print-html-anchor)
+(defparameter *print-anchor-func* #'print-html-anchor)
 
 
 
@@ -310,7 +309,17 @@
   )
 
 
-;; TODO section - title?
+
+(defun extract-first-heading-from-markdown-file (pn)
+  (iter (for line in-file
+             pn
+             using #'read-line)
+    (setf line (str:trim line))
+    (multiple-value-bind (match-string reg-strings)
+        (cl-ppcre:scan-to-strings "^(#+)\\s*(.*)" line)
+      (when match-string
+        (return (aref reg-strings 1))))))
+
 
 
 (defvar *toc-heading* "# Table of Contents")
@@ -326,29 +335,51 @@
 
 (defvar *api-ref-anchor* "API-REF")
 
+(defparameter *section-file-title-func*
+  #'extract-first-heading-from-markdown-file)
 
 
 (defun print-toc-as-markdown
     (toc &key (level 1))
+  ;;
   (when (eq 1 level)
     (funcall *print-anchor-func* "" *toc-anchor*)
-    (format *out-stream* "~A~%~%" *print-toc-heading*))
+    (format *out-stream* "~A~%~%" *toc-heading*))
+  ;;
   (dolist (e toc)
-    ;; TODO  keyword handling
     (format *out-stream* "~v@{~A~:*~}" level "   ")
-    (format *out-stream* "1. [~A](~A)~%"
-            (getf e :text)
-            (funcall *anchor-uri-encode-func*
-                     (format nil "~A" (getf e :anchor))))
+    (let ((text (getf e :text))
+          (anchor (getf e :anchor)))
+      ;; TOC, API-REF, Section-file Headings
+      (cond
+        ((eq text :toc)
+         (setf text *toc-title*
+               anchor *toc-anchor*))
+        ((eq text :api-ref)
+         (setf text *api-ref-title*
+               anchor *api-ref-anchor*))
+        ((pathnamep text)
+         (setf text (or (funcall *section-file-title-func* text)
+                        (format nil "~A" text))
+               anchor (format nil "~A" anchor)))
+        (t
+         (setf text (format nil "~A" text)
+               anchor (format nil "~A" anchor))))
+      ;;
+      (format *out-stream* "1. [~A](~A)~%"
+              text
+              (funcall *anchor-uri-encode-func* anchor)))
+    ;;
     (when (getf e :children)
       (print-toc-as-markdown (getf e :children)
                              :level (1+ level))))
+  ;;
   (when (eq 1 level)
     (format *out-stream* "~%")))
 
 
 
-(defvar *print-toc-func* #'print-toc-as-markdown)
+(defparameter *print-toc-func* #'print-toc-as-markdown)
 
 
 (defun print-toc ()
@@ -423,7 +454,7 @@
           (let ((in-pn
                   (merge-pn-with-asdf-system-path section *system-name*)))
             (log:debug "COPYING FROM: ~a" in-pn)
-            ;; TODO print-anchor
+            (funcall *print-anchor-func* "" (format nil "~A" section))
             (copy-file-into-stream in-pn *out-stream*)))))))
 
 
