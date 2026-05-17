@@ -322,13 +322,62 @@
   (awhen (getf api-ref :docstring)
     (format out-stream "~A" it)))
 
-;; TODO cffi-function
-;; TODO cffi-type
-;; TODO cffi-slot
-;; TODO cffi-struct
-;; TODO cffi-union
-;; TODO cffi-enum
-;; TODO cffi-bitfield
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-function)) api-ref out-stream)
+  (format out-stream "- CFFI NAME: `~W`~%"
+          (getf (getf api-ref :info) :cffi-name))
+  (format out-stream "- CFFI RETURN-TYPE: `~W`~%"
+          (getf (getf api-ref :info) :cffi-return-type))
+  (format out-stream "- LAMBDA LIST: `~W`~%"
+          (getf (getf api-ref :info) :lambda-list))
+  (format out-stream "- SETF? `~W`~%"
+          (getf (getf api-ref :info) :setfp))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-type))
+                                           api-ref out-stream)
+  (format out-stream "- BASE-TYPE: `~W`~%"
+          (getf (getf api-ref :info) :base-type))
+  (awhen (getf (getf api-ref :info) :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-slot))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "   - SLOT `~A` / TYPE: `~A`~%"
+            (getf info :name) (getf info :type)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "      - ~A~%" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-struct))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- SLOTS:~%")
+    (dolist (slot (getf info :slots))
+      (print-api-ref-body-as-markdown :cffi-slot slot out-stream)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-union))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- VARIANTS: `~W`~%" (getf info :variants)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-enum))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- VARIANTS: `~W`~%" (getf info :variants)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
+
+(defmethod print-api-ref-body-as-markdown ((type (eql :cffi-bitfield))
+                                           api-ref out-stream)
+  (let ((info (getf api-ref :info)))
+    (format out-stream "- MASKS: `~W`~%" (getf info :masks)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "~%~A" it)))
 
 (defmethod print-api-ref-body-as-markdown ((type (eql :function)) api-ref out-stream)
   (format out-stream "- LAMBDA LIST: `~W`~%"
@@ -433,9 +482,8 @@
     (format out-stream "      - ACCESSOR: `~W`~%" (getf info :accessor))
     (format out-stream "      - READERS: `~W`~%" (getf info :readers))
     (format out-stream "      - WRITERS: `~W`~%" (getf info :writer))
-    (awhen (getf api-ref :docstring)
+    (awhen (getf info :docstring)
       (format out-stream "      - ~A~%" it))))
-
 
 
 ;; TODO condition?
@@ -455,6 +503,8 @@
     (dolist (symb (getf pkg :symbols))
       (funcall *print-anchor-func* "" (getf symb :anchor))
       (format *out-stream* "### ~A~%~%" (getf symb :text))
+      (format *out-stream* "- SCOPE: ~A~%"
+              (symbol-scope (getf symb :name) (getf pkg :pkg-name)))
       (print-api-ref-body-as-markdown
        (getf symb :type) symb *out-stream*)
       (format *out-stream* "~%~%")
