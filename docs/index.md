@@ -3,14 +3,14 @@
 > Yet another Lisp documentation generator, but it's way more dumber
 > than others.
 
-<a name="TOC">Table of Contents</a>
+<a name="TOC"></a>
 # Table of Contents
 
-  1. [src/01-title.md](src%2F01-title.md)
-  1. [TOC](TOC)
-  1. [src/02-intro.md](src%2F02-intro.md)
-    1. [src/02-a-rationale.md](src%2F02-a-rationale.md)
-  1. [API-REF](API-REF)
+   1. [src/01-title.md](src%2F01-title.md)
+   1. [TOC](TOC)
+   1. [src/02-intro.md](src%2F02-intro.md)
+      1. [src/02-a-rationale.md](src%2F02-a-rationale.md)
+   1. [API-REF](API-REF)
 
 # Introduction
 

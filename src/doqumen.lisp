@@ -331,11 +331,11 @@
 (defun print-toc-as-markdown
     (toc &key (level 1))
   (when (eq 1 level)
-    (funcall *print-anchor-func* *toc-title* *toc-anchor*)
+    (funcall *print-anchor-func* "" *toc-anchor*)
     (format *out-stream* "~A~%~%" *print-toc-heading*))
   (dolist (e toc)
     ;; TODO  keyword handling
-    (format *out-stream* "~v@{~A~:*~}" level "  ")
+    (format *out-stream* "~v@{~A~:*~}" level "   ")
     (format *out-stream* "1. [~A](~A)~%"
             (getf e :text)
             (funcall *anchor-uri-encode-func*
