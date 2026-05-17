@@ -5,6 +5,8 @@
   :license "MIT"
   :depends-on (
                :uiop
+               :asdf
+               :rutils
                )
   :components ((:module "src"
                 :serial t
