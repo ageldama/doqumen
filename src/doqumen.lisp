@@ -302,11 +302,26 @@
 
 
 
+
+(defun print-api-refs-as-markdown (api-refs)
+  (funcall *print-anchor-func* "" *api-refs-anchor*)
+  (format *out-stream* "~A~%~%" *api-refs-heading*)
+  (dolist (pkg api-refs)
+    (funcall *print-anchor-func* "" (getf pkg :anchor))
+    (format *out-stream* "## ~A~%~%" (getf pkg :text))
+    ;;
+    (dolist (symb (getf pkg :symbols))
+      (funcall *print-anchor-func* "" (getf symb :anchor))
+      (format *out-stream* "### ~A~%~%" (getf symb :text))
+      )))
+
+
+(defparameter *print-api-refs-func* #'print-api-refs-as-markdown)
+
+
 (defun print-api-ref ()
   (log:info "PRINT API-REF ...")
-  ;; TODO
-  ;;(print *api-refs* *out-stream*)
-  )
+  (funcall *print-api-refs-func* *api-refs*))
 
 
 
@@ -329,11 +344,11 @@
 (defvar *toc-anchor* "TOC")
 
 
-(defvar *api-ref-heading* "# APIs")
+(defvar *api-refs-heading* "# APIs")
 
-(defvar *api-ref-title* "APIs")
+(defvar *api-refs-title* "APIs")
 
-(defvar *api-ref-anchor* "API-REF")
+(defvar *api-refs-anchor* "API-REFS")
 
 (defparameter *section-file-title-func*
   #'extract-first-heading-from-markdown-file)
@@ -415,8 +430,8 @@
          (toc-appendf toc :text *toc-title*
                           :anchor *toc-anchor*))
         ((eq section :api-ref)
-         (toc-appendf toc :text *api-ref-title*
-                          :anchor *api-ref-anchor*
+         (toc-appendf toc :text *api-refs-title*
+                          :anchor *api-refs-anchor*
                           :children (api-refs->toc *api-refs*)
                           ))
         ((pathnamep section)
