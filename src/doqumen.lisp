@@ -1155,9 +1155,10 @@ any available.
 
 
 
+;; (ql:quickload :doqumen)
+;; (doqumen:build-doc :doqumen :output-file #p"README.md")
 
 
 
-
-
-
+;; TODO extracting multiple titles of varying levels from one file
+;; TODO class-slots
