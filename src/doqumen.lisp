@@ -436,6 +436,7 @@ non-NIL."
 (defparameter *print-anchor-func* #'print-html-anchor)
 
 (defun print-anchor (text anchor-uri)
+  "Print anchor to the output, unless `*PRINT-ANCHOR-FUNC*` is NIL"
   (awhen *print-anchor-func*
     (funcall it text anchor-uri)))
 
@@ -644,6 +645,8 @@ non-NIL."
 
 
 (defun print-api-ref ()
+  "Print API references to the output, unless `*PRINT-API-REFS-FUNC*` is
+NIL"
   (log:info "PRINT API-REF ...")
   (awhen *print-api-refs-func*
     (funcall it *api-refs*)))
@@ -668,17 +671,18 @@ non-NIL."
 
 (defvar *toc-anchor* "TOC")
 
-
 (defvar *api-refs-heading* "# APIs")
 
 (defvar *api-refs-title* "APIs")
 
 (defvar *api-refs-anchor* "API-REFS")
 
+
 (defparameter *section-file-title-func*
   #'extract-first-heading-from-markdown-file)
 
 (defun extract-file-title (pn)
+  "Extract the title of file of `PN` by using `*SECTION-FILE-TITLE-FUNC*`, if it's NIL, evaluate to just `PN`."
   (aif *section-file-title-func*
        (funcall it pn)
        pn))
@@ -711,6 +715,7 @@ non-NIL."
 
 
 (defun print-toc ()
+  "Print TOC to the output using `*PRINT-TOC-FUNC*`, if it isn't NIL."
   (log:info "PRINT TOC ...")
   (awhen *print-toc-func*
     (funcall it *toc*)))
@@ -928,6 +933,7 @@ any available.
 
 
 (defun symbol-scope (name pkg-name)
+  "Scope of symbol `NAME` under `PKG-NAME`. Evaluates as one of `:INTERNAL`, `:EXTERNAL`, or `:INHERITED`"
   (nth-value 1 (find-symbol (->upcase name)
                             (->keyword pkg-name))))
 
