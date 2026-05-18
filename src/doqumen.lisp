@@ -35,6 +35,7 @@
 
    :system-definition-dir
    :merge-pn-with-asdf-system-path
+   :copy-file-into-stream
 
    :seed-plist
 
@@ -48,9 +49,14 @@
 
    :print-api-ref
    :print-toc
+
    :extract-file-title
+   :root-sections
 
    :toc-appendf
+
+   :split-symbol-and-args
+   :find+apply
 
    :symbol-scope
    :->one-line-string
