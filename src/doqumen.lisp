@@ -68,16 +68,19 @@
 
 
 (defun directory-pn (pn)
+  "Directory pathname from `PN`"
   (if (uiop:directory-pathname-p pn) pn
       (uiop:pathname-directory-pathname pn)))
 
 (defun system-definition-dir (system-name)
+  "Directory pathname of ASDF system, `SYSTEM-NAME`"
   (-> system-name
       asdf:find-system
       asdf:system-source-file
       directory-pn))
 
 (defun merge-pn-with-asdf-system-path (pn system-name)
+  "Merged pathname `PN` (relative) with the system definition directory of `SYSTEM-NAME`"
   (-> system-name
       system-definition-dir
       (uiop:merge-pathnames* pn %)))
@@ -85,6 +88,7 @@
 
 
 (defun copy-file-into-stream (in-file out-stream)
+  "Copy contents of pathname `IN-FILE` into `OUT-STREAM`"
   (with-open-file (in-stream in-file :direction :input)
     (uiop:copy-stream-to-stream in-stream out-stream)))
 
@@ -92,15 +96,21 @@
 
 
 
-(defvar *system-name* nil)
+(defvar *system-name* nil
+  "Currently specfied ASDF system name (keyword)")
 
-(defvar *seed-symbol* nil)
-(defvar *seed-prop-name* nil)
+(defvar *seed-symbol* nil
+  "A symbol/keyword which has a property named as `*SEED-PROP-NAME*`")
 
-(defvar *seed-plist* nil)
+(defvar *seed-prop-name* nil
+  "A property name (a keyword) in `*seed-symbol*` to specify `*seed-plist*`")
+
+(defvar *seed-plist* nil
+  "The *seed plist*, an entry-data for doc-generation")
 
 
 (defun seed-plist ()
+  "Get *seed plist*"
   (assert *seed-symbol* (*seed-symbol*))
   (assert *seed-prop-name* (*seed-prop-name*))
   (let ((seed-plist (get *seed-symbol* *seed-prop-name*)))
@@ -108,15 +118,19 @@
 
 
 
-(defvar *output-pn* nil)
-(defvar *out-stream* nil)
+(defvar *output-pn* nil
+  "The output, pathname")
+
+(defvar *out-stream* nil
+  "The output stream")
 
 (defvar *docparser-index* nil)
 
-(defvar *api-refs* nil)
+(defvar *api-refs* nil
+  "Generated API-references (internal data)")
 
-(defvar *api-ref-anchor-prefix* "API-")
-
+(defvar *api-ref-anchor-prefix* "API-"
+  "A prefix to be prepended to anchor URI of API reference entries")
 
 
 (defmethod type-keyword (node) :unknown)
@@ -311,19 +325,20 @@
 
 
 
-
 (defun api-ref-code-string-in-markdown (string)
+  "Quote `STRING` as a code-string in Markdown format"
   (format nil "`~A`" string))
 
 
-(defparameter *api-ref-code-string-func* #'api-ref-code-string-in-markdown)
+(defparameter *api-ref-code-string-func*
+  #'api-ref-code-string-in-markdown
+  "A function to be used to quote code-string")
 
 (defun api-ref-code-string (string)
+  "Quote `STRING` as a code-literal in output format"
   (aif *api-ref-code-string-func*
        (funcall it string)
        string))
-
-
 
 
 (defun api-refs-sort-toc-symbols-text-lexico (symbs)
@@ -348,10 +363,16 @@
 
 
 (defun api-refs-sort-toc-symbols (symbs)
+  "Destructively sort a list `SYMBS` with a function of
+`*API-REFS-SORT-TOC-SYMBOLS-FUNC*`. Sorting when the function is
+non-NIL."
   (awhen *api-refs-sort-toc-symbols-func*
     (funcall it symbs)))
 
 (defun api-refs-sort-toc-packages (symbs)
+  "Destructively sort a list `SYMBS` with a function
+`*API-REFS-SORT-TOC-PACKAGES-FUNC*`, Sorting when the variable is
+non-NIL."
   (awhen *api-refs-sort-toc-packages-func*
     (funcall it symbs)))
 
