@@ -37,8 +37,8 @@ file.
          1. [FUNCTION: `INIT-LOGGER`](#api-function-init-logger_8A1376922ED11E09BA06EA3CBE1CA814)
          1. [FUNCTION: `MERGE-PN-WITH-ASDF-SYSTEM-PATH`](#api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5)
          1. [FUNCTION: `PRINT-ANCHOR`](#api-function-print-anchor_08C61BDB0F863D41C9BEE88B02E4A97E)
-         1. [FUNCTION: `PRINT-API-REF`](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
          1. [FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
+         1. [FUNCTION: `PRINT-API-REF`](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
          1. [FUNCTION: `PRINT-FOOTER-MARKDOWN`](#api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2)
          1. [FUNCTION: `PRINT-FOOTER`](#api-function-print-footer_014690A752E8AA77BEA138FF3DB991BA)
          1. [FUNCTION: `PRINT-HTML-ANCHOR`](#api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784)
@@ -343,8 +343,7 @@ Extract the title of file of `PN` by using `*SECTION-FILE-TITLE-FUNC*`, if it's 
 ### FUNCTION: `FIND+APPLY`
 
 - SCOPE: EXTERNAL
-- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &KEY DOQUMEN::ARGS
-                 (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
+- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &KEY DOQUMEN::ARGS (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
 - SETF? `NIL`
 
 Find a function named `SYM` via `SPLIT-SYMBOL-AND-ARGS`
@@ -387,6 +386,15 @@ Merged pathname `PN` (relative) with the system definition directory of `SYSTEM-
 
 Print anchor to the output, unless `*PRINT-ANCHOR-FUNC*` is NIL
 
+<a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
+### FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
+print api-refs as markdown
+
 <a name="api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0"></a>
 ### FUNCTION: `PRINT-API-REF`
 
@@ -396,15 +404,6 @@ Print anchor to the output, unless `*PRINT-ANCHOR-FUNC*` is NIL
 
 Print API references to the output, unless `*PRINT-API-REFS-FUNC*` is
 NIL
-
-<a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
-### FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`
-
-- SCOPE: INTERNAL
-- LAMBDA LIST: `(DOQUMEN::API-REFS)`
-- SETF? `NIL`
-
-print api-refs as markdown
 
 <a name="api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2"></a>
 ### FUNCTION: `PRINT-FOOTER-MARKDOWN`
@@ -500,8 +499,7 @@ Get *seed plist*
 ### FUNCTION: `SPLIT-SYMBOL-AND-ARGS`
 
 - SCOPE: EXTERNAL
-- LAMBDA LIST: `(DOQUMEN::SYMB &KEY (DOQUMEN::PKG *PACKAGE*)
-                 (DOQUMEN::PREFIX "") (DOQUMEN::SPACE-CHAR #\ ))`
+- LAMBDA LIST: `(DOQUMEN::SYMB &KEY (DOQUMEN::PKG *PACKAGE*) (DOQUMEN::PREFIX "") (DOQUMEN::SPACE-CHAR #\ ))`
 - SETF? `NIL`
 
 Split Symbol/Keyword `SYMB` by `SPACE-CHAR` => `(VALUES SYMB REST-FORM)`
@@ -552,8 +550,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### MACRO: `TOC-APPENDF`
 
 - SCOPE: EXTERNAL
-- LAMBDA LIST: `(DOQUMEN::PLACE &KEY DOQUMEN::TEXT DOQUMEN::ANCHOR
-                 DOQUMEN::CHILDREN)`
+- LAMBDA LIST: `(DOQUMEN::PLACE &KEY DOQUMEN::TEXT DOQUMEN::ANCHOR DOQUMEN::CHILDREN)`
 - SETF? `NIL`
 
 
@@ -732,8 +729,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### METHOD: `PRINT-API-REF-BODY-AS-MARKDOWN` `((TYPE (EQL CFFI-BITFIELD)) API-REF OUT-STREAM)`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `((TYPE (EQL :CFFI-BITFIELD)) DOQUMEN::API-REF
-                 DOQUMEN::OUT-STREAM)`
+- LAMBDA LIST: `((TYPE (EQL :CFFI-BITFIELD)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
 
@@ -751,8 +747,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### METHOD: `PRINT-API-REF-BODY-AS-MARKDOWN` `((TYPE (EQL CFFI-FUNCTION)) API-REF OUT-STREAM)`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `((TYPE (EQL :CFFI-FUNCTION)) DOQUMEN::API-REF
-                 DOQUMEN::OUT-STREAM)`
+- LAMBDA LIST: `((TYPE (EQL :CFFI-FUNCTION)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
 
@@ -824,8 +819,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### METHOD: `PRINT-API-REF-BODY-AS-MARKDOWN` `((TYPE (EQL GENERIC-FUNCTION)) API-REF OUT-STREAM)`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `((TYPE (EQL :GENERIC-FUNCTION)) DOQUMEN::API-REF
-                 DOQUMEN::OUT-STREAM)`
+- LAMBDA LIST: `((TYPE (EQL :GENERIC-FUNCTION)) DOQUMEN::API-REF DOQUMEN::OUT-STREAM)`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
 
@@ -1249,4 +1243,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:48:26.918248+09:00 by https://github.com/ageldama
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T21:21:03.846806+09:00 by https://github.com/ageldama
