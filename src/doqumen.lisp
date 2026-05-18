@@ -345,7 +345,7 @@
 
 
 (defun escape-code-text-for-markdown (str)
-  (let ((chars-to-escape '( #\` #\# )))
+  (let ((chars-to-escape '( #\`  )))
     (with-output-to-string (out)
       (loop for char across str do
         (when (member char chars-to-escape)

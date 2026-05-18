@@ -7,7 +7,9 @@ input text files, and the output text file, customize below variables:
 - `*anchor-uri-encode-func*`
 - `*print-anchor-func*`
 - `*api-ref-anchor-prefix*`
-- `*api-ref-code-string-func*`
+- `*code-string-func*`
+- `*repr-string-func*`
+- `*safe-string-func*`
 - `*api-refs-anchor*`
 - `*api-refs-heading*`
 - `*api-refs-title*`

@@ -274,7 +274,9 @@ input text files, and the output text file, customize below variables:
 - `*anchor-uri-encode-func*`
 - `*print-anchor-func*`
 - `*api-ref-anchor-prefix*`
-- `*api-ref-code-string-func*`
+- `*code-string-func*`
+- `*repr-string-func*`
+- `*safe-string-func*`
 - `*api-refs-anchor*`
 - `*api-refs-heading*`
 - `*api-refs-title*`
@@ -403,7 +405,7 @@ non-NIL.
 
 - SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME &KEY DOQUMEN::SEED-SYMBOL
- (DOQUMEN::SEED-PROP-NAME :DOQUMEN) (DOQUMEN::OUTPUT-FILE \#P"docs/index.md"))`
+ (DOQUMEN::SEED-PROP-NAME :DOQUMEN) (DOQUMEN::OUTPUT-FILE #P"docs/index.md"))`
 - SETF? `NIL`
 
 Build it!
@@ -706,7 +708,7 @@ Get *seed plist*
 
 - SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::SYMB &KEY (DOQUMEN::PKG *PACKAGE*) (DOQUMEN::PREFIX "")
- (DOQUMEN::SPACE-CHAR \#\ ))`
+ (DOQUMEN::SPACE-CHAR #\ ))`
 - SETF? `NIL`
 
 Split Symbol/Keyword `SYMB` by `SPACE-CHAR` => `(VALUES SYMB REST-FORM)`
@@ -1269,7 +1271,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### VARIABLE: `*ANCHOR-URI-ENCODE-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN:SLUGIFY+MD5HEX`
+- INITIAL-VALUE: `#'DOQUMEN:SLUGIFY+MD5HEX`
 
 
 <a name="api-variable-api-ref-anchor-prefix_B40511D325F89B39AD8C7664F29CE9EC"></a>
@@ -1299,21 +1301,21 @@ Generated API-references (internal data)
 ### VARIABLE: `*API-REFS-HEADING*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `"\# APIs"`
+- INITIAL-VALUE: `"# APIs"`
 
 
 <a name="api-variable-api-refs-sort-toc-packages-func_1A083316D169E3510A776FCC23978738"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-PACKAGES-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
+- INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-sort-toc-symbols-func_5F07A8F909CEF80BE211D58AE25F760A"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-SYMBOLS-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
+- INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-title_C093F46F4EFD545FDF07E0D2D6E3F2A2"></a>
@@ -1327,7 +1329,7 @@ Generated API-references (internal data)
 ### VARIABLE: `*CODE-STRING-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::CODE-STRING-IN-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::CODE-STRING-IN-MARKDOWN`
 
 A function to be used to quote code-string
 
@@ -1358,35 +1360,35 @@ The output, pathname
 ### VARIABLE: `*PRINT-ANCHOR-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::PRINT-HTML-ANCHOR`
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-HTML-ANCHOR`
 
 
 <a name="api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD"></a>
 ### VARIABLE: `*PRINT-API-REFS-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
 
 
 <a name="api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2"></a>
 ### VARIABLE: `*PRINT-FOOTER-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
 
 
 <a name="api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1"></a>
 ### VARIABLE: `*PRINT-TOC-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
 
 
 <a name="api-variable-repr-string-func_E65983C62B2765D0BD7A692754DAA263"></a>
 ### VARIABLE: `*REPR-STRING-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::REPR-STRING-IN-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::REPR-STRING-IN-MARKDOWN`
 
 A function to be used to quote value repr-string
 
@@ -1394,7 +1396,7 @@ A function to be used to quote value repr-string
 ### VARIABLE: `*SAFE-STRING-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::SAFE-STRING-IN-MARKDOWN`
+- INITIAL-VALUE: `#'DOQUMEN::SAFE-STRING-IN-MARKDOWN`
 
 A function to be used to escape string for an output format
 
@@ -1402,7 +1404,7 @@ A function to be used to escape string for an output format
 ### VARIABLE: `*SECTION-FILE-TITLE-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `\#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
+- INITIAL-VALUE: `#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
 
 
 <a name="api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1"></a>
@@ -1455,7 +1457,7 @@ Currently specfied ASDF system name (keyword)
 ### VARIABLE: `*TOC-HEADING*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `"\# Table of Contents"`
+- INITIAL-VALUE: `"# Table of Contents"`
 
 
 <a name="api-variable-toc-title_5001DD973F071A0844D3208CE43FA38F"></a>
@@ -1466,4 +1468,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T23:52:47.865202+09:00 by https://github.com/ageldama
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T23:55:56.446124+09:00 by https://github.com/ageldama
