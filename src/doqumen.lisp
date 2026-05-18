@@ -950,6 +950,7 @@
                       ;; ...rests are subheadings:
                       ,#p"src/02-a-rationale.md"
                       ,#p"src/02-b-getting-started.md"
+                      ,#p"src/02-c-syntax.md"
                       )
                      ,#p"src/03-hacks.md"
                      :api-ref

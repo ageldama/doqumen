@@ -20,6 +20,7 @@ file.
    1. [Introduction](#src02-intromd_E050A23B273C71B7871DD4D2C9CB5C4F)
       1. [Rationale](#src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494)
       1. [Getting Started](#src02-b-getting-startedmd_CFBB2CA153C21072C7866DDB66C66749)
+      1. [Syntax](#src02-c-syntaxmd_28523BBF140BC31D3F0CEB0CF14F1D72)
    1. [src/03-hacks.md](#src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0)
    1. [APIs](#api-refs_523EACBA8CE3897B5EE91337B062B676)
       1. [PACKAGE: `DOQUMEN`](#api-package-doqumen_2B650FD091813ED13A817D4400A46408)
@@ -139,7 +140,7 @@ Are you stupid enough just like me do? Goood. 🫠
 
 Too lame to learn those Lisp libraries and tools? Sad. 😂
 
-Then just use this stupid tool. ``Here your''. 🔨
+Then just use this stupid tool. "Here your". 🔨
 
 <a name="src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494"></a>
 ## Rationale
@@ -178,6 +179,46 @@ I needed it, but I don't want to use anything else.
 
 1. Enjoy the output: `docs/index.md`
 
+
+<a name="src02-c-syntaxmd_28523BBF140BC31D3F0CEB0CF14F1D72"></a>
+## Syntax
+
+1. [Attached property](https://www.lispworks.com/documentation/HyperSpec/Body/f_get.htm#get)
+   named `:DOQUMEN` is called "*seed plist*".
+   1. could be specified with another property and at another symbol,
+      with `(BUILD-DOC :your-system-name :seed-prop-name
+      :ANOTHER-PROP-NAME :seed-symb :OF-ANOTHER-SYMBOL)`
+
+1. The *seed plist* has only one property `:SECTIONS` (currently)
+
+1. The `:SECTIONS` has a list as its' value in a sense of [Lisp
+   Plist](https://www.lispworks.com/documentation/HyperSpec/Body/26_glo_p.htm#property_list)
+   1. for example: `(:sections ( .... ))`
+
+1. In the list of `:SECTIONS`, you could place one of:
+   1. A pathname of text file.
+      - Will be merged with pathname of `.asd` definition file,
+      - Copied into the output file literally.
+
+   1. Keywords: `:TOC`, `:API-REF`, `:FOOTER`
+      - Doqumen has builtin supports above 3 keywords.
+      - will place "Table of Contents", "API References", and the "Footer"
+        in the output respectively.
+
+      - Any other keywords could be placed, see "HACKS" section below.
+
+   1. Nested list represents a section and its subsections.
+      - for example, for a list of:
+        `(:A (:B :B-1 :B-2) :C)`
+
+      - will be rendered like:
+        ```
+        1. A
+        2. B
+           1. B-1
+           2. B-2
+        3. C
+        ```
 
 <a name="src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0"></a>
 
@@ -1091,4 +1132,4 @@ print api-refs as markdown
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:51:59.973607+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T14:00:39.673682+09:00
