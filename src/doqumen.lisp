@@ -718,6 +718,7 @@
   ;;
   (log:info "LOADING SYSTEM: ~a" system-name)
   (asdf:find-system system-name)
+  (asdf:load-system system-name :force t)
   (log:info "SYSTEM DEF DIR: ~A" (system-definition-dir system-name))
   ;;
   (let* ((*system-name* system-name)
@@ -851,7 +852,9 @@
                       ,#p"src/02-intro.md"
                       ;; ...rests are subheadings:
                       ,#p"src/02-a-rationale.md"
+                      ,#p"src/02-b-getting-started.md"
                       )
+                     ,#p"src/03-hacks.md"
                      :api-ref
                      ))))
 

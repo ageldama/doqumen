@@ -11,6 +11,7 @@
    1. [Table of Contents](#toc_6994206AA5146E62315E61B6ECF6F56B)
    1. [Introduction](#src02-intromd_E050A23B273C71B7871DD4D2C9CB5C4F)
       1. [Rationale](#src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494)
+      1. [Getting Started](#src02-b-getting-startedmd_CFBB2CA153C21072C7866DDB66C66749)
    1. [APIs](#api-refs_523EACBA8CE3897B5EE91337B062B676)
       1. [PACKAGE: `DOQUMEN`](#api-package-doqumen_2B650FD091813ED13A817D4400A46408)
          1. [FUNCTION: `DIRECTORY-PN`](#api-function-directory-pn_F86EFC279522D457F3F0B629367DE218)
@@ -130,6 +131,36 @@ Then just use this stupid tool. ``Here your''. 🔨
 
 I needed it, but I don't want to use anything else.
 
+<a name="src02-b-getting-startedmd_CFBB2CA153C21072C7866DDB66C66749"></a>
+## Getting Started
+
+1. Install it: Symlink `doqumen.asd` and `(PROGN
+   (ASDF:CLEAR-CONFIGURATION) (QL:QUICKLOAD :doqumen))`
+
+1. Write **`seed-plist`** variable:
+   ```lisp
+   (eval-when (:compile-toplevel :load-toplevel :execute)
+     ;; Same keyword with name of ASDF-system:
+     (setf (get :doqumen :doqumen)
+           `(:sections (
+                        ,#p"src/01-title.md"
+                        :toc     ; <-- Place of TOC
+                        (
+                         ;; 1st item in a list is heading.
+                         ,#p"src/02-intro.md"
+                         ;; ...rests are subheadings:
+                         ,#p"src/02-a-rationale.md"
+                         ,#p"src/02-b-getting-started.md"
+                         )
+                        :api-ref ; Place API-Refs Here
+                        ))))
+   ```
+
+1. Write .md files you've mentioned in `seed-plist`, and docstrings.
+
+1. Generate: `(DOQUMEN:BUILD-DOC :doqumen)`
+
+1. Enjoy the output: `docs/index.md`
 <a name="api-refs_523EACBA8CE3897B5EE91337B062B676"></a>
 # APIs
 
