@@ -254,10 +254,6 @@
 
 
 
-(defparameter *api-refs-sorter* nil) ;; TODO
-
-
-
 (defun api-ref-code-string-in-markdown (string)
   (format nil "`~A`" string))
 
@@ -266,6 +262,37 @@
 
 (defun api-ref-code-string (string)
   (funcall *api-ref-code-string-func* string))
+
+
+
+
+(defun api-refs-sort-toc-symbols-text-lexico (symbs)
+  (sort symbs (lambda (a b)
+                (string-lessp
+                 (getf a :text)
+                 (getf b :text)))))
+
+(defun api-refs-sort-toc-packages-text-lexico (pkgs)
+  (sort pkgs (lambda (a b)
+                (string-lessp
+                 (getf a :text)
+                 (getf b :text)))))
+
+
+
+(defparameter *api-refs-sort-toc-symbols-func*
+  #'api-refs-sort-toc-symbols-text-lexico)
+
+(defparameter *api-refs-sort-toc-packages-func*
+  #'api-refs-sort-toc-packages-text-lexico)
+
+
+(defun api-refs-sort-toc-symbols (symbs)
+  (funcall *api-refs-sort-toc-symbols-func* symbs))
+
+(defun api-refs-sort-toc-packages (symbs)
+  (funcall *api-refs-sort-toc-packages-func* symbs))
+
 
 
 
@@ -720,7 +747,8 @@
           (uiop:with-output-file (*out-stream*
                                   *output-pn*
                                   :if-exists :supersede)
-            (print-sections)))))))
+            (print-sections))))))
+  (log:info "ALL GENERATED!"))
 
 
 
@@ -785,7 +813,10 @@
                                 (api-ref-code-string name))
                   :anchor (format nil "~A~A-~A"
                                   *api-ref-anchor-prefix*
-                                  type name)))))))))
+                                  type name)))))))
+    ;;
+    (api-refs-sort-toc-symbols (getf pkg :symbols)))
+  (api-refs-sort-toc-packages api-refs))
 
 
 (defun api-refs->toc (api-refs)
