@@ -1160,5 +1160,4 @@ any available.
 
 
 
-;; TODO extracting multiple titles of varying levels from one file
 ;; TODO class-slots
