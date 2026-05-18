@@ -706,7 +706,7 @@ non-NIL."
 (defmethod print-api-ref-body-as-markdown ((type (eql :class-slot))
                                            api-ref out-stream)
   ;; (log:debug "SLOT: ~W" api-ref)
-  (format out-stream "   - CLASS-SLOT ~A / TYPE: ~A~%"
+  (format out-stream "   - SLOT ~A / TYPE: ~A~%"
           (code-string (getf api-ref :name))
           (code-string (getf api-ref :type)))
   (format out-stream "      - ALLOCATION: ~A~%"
