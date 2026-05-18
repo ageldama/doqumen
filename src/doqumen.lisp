@@ -254,9 +254,22 @@
 
 
 
+(defparameter *api-refs-sorter* nil) ;; TODO
 
 
-(defun gather-api-docs ()
+
+(defun api-ref-code-string-in-markdown (string)
+  (format nil "`~A`" string))
+
+
+(defparameter *api-ref-code-string-func* #'api-ref-code-string-in-markdown)
+
+(defun api-ref-code-string (string)
+  (funcall *api-ref-code-string-func* string))
+
+
+
+(defun gather-api-refs ()
   (let ((results '()))
     (docparser:do-packages (pkg *docparser-index*)
       (let ((pkg-name (docparser:package-index-name pkg))
@@ -694,8 +707,8 @@
     ;;
     (log:info "DOC-PARSING: ~a ..." *system-name*)
     (let ((*docparser-index* (docparser:parse *system-name*)))
-      (log:info "GATHERING API-DOCS ...")
-      (let ((*api-refs* (gather-api-docs)))
+      (log:info "GATHERING API-REFS ...")
+      (let ((*api-refs* (gather-api-refs)))
         (expand-api-refs-for-toc *api-refs*)
         (log:info "BUILDING TOC ...")
         (let ((*toc* (build-toc)))
@@ -738,7 +751,9 @@
   (dolist (pkg api-refs)
     (rutils:nconcf
      pkg
-     (list :text (format nil "PACKAGE: ~A" (getf pkg :pkg-name))
+     (list :text (format nil "PACKAGE: ~A"
+                         (api-ref-code-string
+                          (getf pkg :pkg-name)))
            :anchor (format nil "~APACKAGE-~A"
                            *api-ref-anchor-prefix*
                            (getf pkg :pkg-name))))
@@ -750,15 +765,16 @@
           (:method
               (rutils:nconcf
                symb
-               (list :text (format nil "~A: ~A ~A"
-                            type name
-                            (->one-line-string
-                             (getf (getf symb :info) :lambda-list)))
-                     :anchor (format nil "~A~A-~A-~A"
-                              *api-ref-anchor-prefix*
-                              type name
-                              (->one-line-string
-                               (getf (getf symb :info) :lambda-list))))))
+               (let ((lambda-list-str (-> symb
+                                          (getf % :info)
+                                          (getf % :lambda-list)
+                                          ->one-line-string)))
+                 (list :text (format nil "~A: ~A ~A"
+                                     type name
+                                     (api-ref-code-string lambda-list-str))
+                       :anchor (format nil "~A~A-~A-~A"
+                                       *api-ref-anchor-prefix*
+                                       type name lambda-list-string)))))
           (t
            (rutils:nconcf
             symb
@@ -809,4 +825,3 @@
 
 
 ;;; TODO defpkg:export
-;;; TODO `...` api-ref titles
