@@ -812,7 +812,7 @@ any available.
                           :anchor *api-refs-anchor*
                           :children (api-refs->toc *api-refs*)
                           ))
-        ((keywordp section)
+        ((symbolp section)
          (find+apply "toc-" section
                      :args (list :toc toc
                                  :section section
@@ -829,22 +829,24 @@ any available.
 (defun toc-footer (&rest args)
   (declare (ignore args))
   ;; ignored
+  ;; (format T "TOC-FOOTER: ~W~%" args)
   )
 
 
-(defun print-footer-markdown ()
+(defun print-footer-markdown (&rest args)
   (format *out-stream* "--------------------------------~%")
   (format *out-stream*
-          "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~%"
-          (local-time:now)))
+          "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~a~%"
+          (local-time:now)
+          (aif (member :copyright args)
+               (cadr it) "")))
 
 
 (defparameter *print-footer-func* #'print-footer-markdown)
 
 (defun print-footer (&rest args)
-  (declare (ignore args))
-  (when *print-footer-func*
-    (funcall *print-footer-func*)))
+  ;; (format T "PRINT-FOOTER: ~W~%" args)
+  (awhen *print-footer-func* (apply it args)))
 
 
 
@@ -854,7 +856,7 @@ any available.
   (let ((sections* (or sections (root-sections))))
     (dolist (section sections*)
       (cond
-        ((keywordp section)
+        ((symbolp section)
           (case section
             (:api-ref (print-api-ref))
             (:toc (print-toc))
@@ -1027,11 +1029,15 @@ any available.
                       ,#p"src/02-b-getting-started.md"
                       ,#p"src/02-c-syntax.md"
                       )
-                     ,#p"src/03-hacks.md"
+                     (
+                      ,#p"src/03-hacks.md"
+                      ,#p"src/03-a-other-than-markdown.md"
+                      ,#p"src/03-b-custom-sections.md"
+                      )
                      ,#p"src/04-support.md"
                      ,#p"src/05-license.md"
                      :api-ref
-                     :footer
+                     |footer (:copyright " by https://github.com/ageldama")|
                      ))))
 
 

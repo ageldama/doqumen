@@ -21,7 +21,9 @@ file.
       1. [Rationale](#src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494)
       1. [Getting Started](#src02-b-getting-startedmd_CFBB2CA153C21072C7866DDB66C66749)
       1. [Syntax](#src02-c-syntaxmd_28523BBF140BC31D3F0CEB0CF14F1D72)
-   1. [src/03-hacks.md](#src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0)
+   1. [Hacking](#src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0)
+      1. [Other than Markdown?](#src03-a-other-than-markdownmd_C3B06BA1C3D4895397EAD4C249D75925)
+      1. [Your Own Custom Sections](#src03-b-custom-sectionsmd_4C92CCA6305EFED4D667DB942EF91B2F)
    1. [Supporting](#src04-supportmd_35A131F08A23D88C3F99D6456F18719E)
    1. [License](#src05-licensemd_EFDB1F747BA5BEB0C3F1BFB3FAEA55F0)
    1. [APIs](#api-refs_523EACBA8CE3897B5EE91337B062B676)
@@ -143,7 +145,7 @@ Are you stupid enough just like me do? Goood. 🫠
 
 Too lame to learn those Lisp libraries and tools? Sad. 😂
 
-Then just use this stupid tool. "Here your". 🔨
+Then just use this unobtrusive tool. "Here your". 🔨
 
 <a name="src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494"></a>
 ## Rationale
@@ -225,7 +227,63 @@ I needed it, but I don't want to use anything else.
 
 <a name="src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0"></a>
 
-TODO
+# Hacking
+
+By default, doqumen is:
+
+1. Emits a single output file.
+1. Assumes the output and the input text files and docstrings in Lisp
+   code are all Markdown formatted.
+
+But can be *customized* as you want to:
+
+1. Change the input, docstring, and the output formats as you want to.
+1. Print the link anchors or not.
+1. and Add custom sections in *seed plist*.
+
+<a name="src03-a-other-than-markdownmd_C3B06BA1C3D4895397EAD4C249D75925"></a>
+
+## Other than Markdown?
+
+If you want to use other than Markdown format for your docstrings,
+input text files, and the output text file, customize below variables:
+
+- *anchor-uri-encode-func*
+- *print-anchor-func*
+- *api-ref-anchor-prefix*
+- *api-ref-code-string-func*
+- *api-refs-anchor*
+- *api-refs-heading*
+- *api-refs-title*
+- *print-api-refs-func*
+- *print-footer-func*
+- *print-toc-func*
+- *section-file-title-func*
+<a name="src03-b-custom-sectionsmd_4C92CCA6305EFED4D667DB942EF91B2F"></a>
+
+## Your Own Custom Sections
+
+Do you Remember that `:SECTIONS` of *seed plist* has a few special
+sections like `:TOC`, `:API-REF`, and `:FOOTER`.
+
+You could add your own custom sections, imagine `:MEDITATE` or
+something. By writing and exporting functions: `DOQUMEN:PRINT-MEDITATE`
+and `DOQUMEN:TOC-MEDITATE`.
+
+Each function receives required arguments, for more detailed
+information, please read the code of `DOQUMEN:PRINT-FOOTER` and
+`DOQUMEN:TOC-FOOTER` and try your own hack. Yes, the `:FOOTER` is
+implemented in this way.
+
+Also, you could pass any arbitrary additional arguments by writing
+this:
+```lisp
+|MEDITATE (:TEA "Drank")|
+```
+
+The custom section functions `PRINT-MEDITATE` and `TOC-MEDITATE` would
+get `ARGS` as a list looks like `(LIST ... :TEA "Drank")`.
+
 
 <a name="src04-supportmd_35A131F08A23D88C3F99D6456F18719E"></a>
 
@@ -352,7 +410,7 @@ print api-refs as markdown
 ### FUNCTION: `PRINT-FOOTER-MARKDOWN`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `NIL`
+- LAMBDA LIST: `(&REST DOQUMEN::ARGS)`
 - SETF? `NIL`
 
 
@@ -1191,4 +1249,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:08:04.799720+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:44:30.588527+09:00 by https://github.com/ageldama
