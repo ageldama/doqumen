@@ -25,11 +25,13 @@ file.
       1. [PACKAGE: `DOQUMEN`](#api-package-doqumen_2B650FD091813ED13A817D4400A46408)
          1. [FUNCTION: `DIRECTORY-PN`](#api-function-directory-pn_F86EFC279522D457F3F0B629367DE218)
          1. [FUNCTION: `EXPAND-API-REFS-FOR-TOC`](#api-function-expand-api-refs-for-toc_E02914B2A0E00F57C6C3201FC5C10C49)
+         1. [FUNCTION: `EXTRACT-FILE-TITLE`](#api-function-extract-file-title_FFAC08C012144B3BADFF024D14DD58AD)
          1. [FUNCTION: `EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`](#api-function-extract-first-heading-from-markdown-file_730F81E641FF151849099101832AAD4D)
          1. [FUNCTION: `FIND+APPLY`](#api-function-findapply_FC403F0AA5B62FF959B9A6F625CE75EE)
          1. [FUNCTION: `GATHER-API-REFS`](#api-function-gather-api-refs_B41D204385D289858A12BDA1DA87047F)
          1. [FUNCTION: `INIT-LOGGER`](#api-function-init-logger_8A1376922ED11E09BA06EA3CBE1CA814)
          1. [FUNCTION: `MERGE-PN-WITH-ASDF-SYSTEM-PATH`](#api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5)
+         1. [FUNCTION: `PRINT-ANCHOR`](#api-function-print-anchor_08C61BDB0F863D41C9BEE88B02E4A97E)
          1. [FUNCTION: `PRINT-API-REF`](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
          1. [FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
          1. [FUNCTION: `PRINT-FOOTER-MARKDOWN`](#api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2)
@@ -203,6 +205,14 @@ TODO
 - SETF? `NIL`
 
 
+<a name="api-function-extract-file-title_FFAC08C012144B3BADFF024D14DD58AD"></a>
+### FUNCTION: `EXTRACT-FILE-TITLE`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(DOQUMEN::PN)`
+- SETF? `NIL`
+
+
 <a name="api-function-extract-first-heading-from-markdown-file_730F81E641FF151849099101832AAD4D"></a>
 ### FUNCTION: `EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
 
@@ -239,15 +249,23 @@ TODO
 <a name="api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5"></a>
 ### FUNCTION: `MERGE-PN-WITH-ASDF-SYSTEM-PATH`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::PN DOQUMEN::SYSTEM-NAME)`
+- SETF? `NIL`
+
+
+<a name="api-function-print-anchor_08C61BDB0F863D41C9BEE88B02E4A97E"></a>
+### FUNCTION: `PRINT-ANCHOR`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(DOQUMEN::TEXT DOQUMEN::ANCHOR-URI)`
 - SETF? `NIL`
 
 
 <a name="api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0"></a>
 ### FUNCTION: `PRINT-API-REF`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
@@ -304,7 +322,7 @@ print api-refs as markdown
 <a name="api-function-print-toc_EB36BB057A5C71AD71517EF8249D9562"></a>
 ### FUNCTION: `PRINT-TOC`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
@@ -328,7 +346,7 @@ print api-refs as markdown
 <a name="api-function-seed-plist_762B2789D205C14E6052E6F187C7E890"></a>
 ### FUNCTION: `SEED-PLIST`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
@@ -336,7 +354,7 @@ print api-refs as markdown
 <a name="api-function-slugifymd5hex_7620F9D4E8A3275BD8E07C86AFBD9BC3"></a>
 ### FUNCTION: `SLUGIFY+MD5HEX`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(STRING)`
 - SETF? `NIL`
 
@@ -344,7 +362,7 @@ print api-refs as markdown
 <a name="api-function-slugify_FB5C5450CFC6AB8136CB904EA95E43F8"></a>
 ### FUNCTION: `SLUGIFY`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(STRING)`
 - SETF? `NIL`
 
@@ -352,7 +370,7 @@ print api-refs as markdown
 <a name="api-function-symbol-scope_412C0506D16DF16942F8BC87368649D1"></a>
 ### FUNCTION: `SYMBOL-SCOPE`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::NAME DOQUMEN::PKG-NAME)`
 - SETF? `NIL`
 
@@ -360,7 +378,7 @@ print api-refs as markdown
 <a name="api-function-system-definition-dir_5237ACD564C1A533380FD02E9F787927"></a>
 ### FUNCTION: `SYSTEM-DEFINITION-DIR`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME)`
 - SETF? `NIL`
 
@@ -384,7 +402,7 @@ print api-refs as markdown
 <a name="api-macro-toc-appendf_F49CDAAA2277C1D5A2D8D9C535C79F88"></a>
 ### MACRO: `TOC-APPENDF`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::PLACE &KEY DOQUMEN::TEXT DOQUMEN::ANCHOR
                  DOQUMEN::CHILDREN)`
 - SETF? `NIL`
@@ -393,7 +411,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-bitfield_83DC4E4287DA8868F9C70C1AE0730DDE"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-BITFIELD))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-BITFIELD))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -402,7 +420,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-enum_E8F5F2C89ED2A587A58E9C1A6CE36E89"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-ENUM))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-ENUM))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -411,7 +429,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-function_B2E83B7D0ADF7006A09576C73B532C43"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-FUNCTION))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-FUNCTION))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -420,7 +438,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-slot_6140D072FDACCE9CCEDEEE3C17BFB16A"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-SLOT))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-SLOT))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -429,7 +447,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-struct_46E9F277A06A4FE9AA6A1C89CCE831CD"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-STRUCT))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-STRUCT))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -438,7 +456,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-type_A3387640135B100714D3E36E1676DB06"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-TYPE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-TYPE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -447,7 +465,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-cffi-union_AFDA00F15CA6D95A44134E89D66F512D"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CFFI-UNION))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-UNION))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -456,7 +474,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-class-node_F37BA67BE2F5C3C9CDE0482279C2C842"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CLASS-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -465,7 +483,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-class-slot-node_60765F4BB0236A3E6084F2B29CBFEFB3"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE CLASS-SLOT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-SLOT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -474,7 +492,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-function-node_B25327B4820BB6BD0B1E1E46FE51B966"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE FUNCTION-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:FUNCTION-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -483,7 +501,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-generic-function-node_AA2451D62C50C9F7D45A28BEC88B3B34"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE GENERIC-FUNCTION-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:GENERIC-FUNCTION-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -492,7 +510,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-macro-node_F59C2714B0E3C8091949EDAD87F0E4C8"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE MACRO-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:MACRO-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -501,7 +519,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-method-node_27C51F89D2E1723E71F29FD213BAAE40"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE METHOD-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:METHOD-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -510,7 +528,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-operator-node_57517217D45BB1A8767AD27621E8D714"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE OPERATOR-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:OPERATOR-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -519,7 +537,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-struct-node_02D0C5A20C9C13BDA6346044DE86E46B"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE STRUCT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -528,7 +546,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-struct-slot-node_140879081B5711996302E228D12029C2"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE STRUCT-SLOT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-SLOT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -537,7 +555,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-type-node_D55A5E3B3E6DB9358BF3705F08177C67"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE TYPE-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:TYPE-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -546,7 +564,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node-variable-node_728BD18B5BC42982A36E5AF2AE27FC81"></a>
 ### METHOD: `NODE-INFO-LIST` `((NODE VARIABLE-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:VARIABLE-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -555,7 +573,7 @@ print api-refs as markdown
 <a name="api-method-node-info-list-node_4EC2E7004BB3D661CEE9D3EEC37BA223"></a>
 ### METHOD: `NODE-INFO-LIST` `(NODE)`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::NODE)`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -729,7 +747,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-bitfield_458ED88CB5DD1594272BD312076332D8"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-BITFIELD))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-BITFIELD))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -738,7 +756,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-enum_E2881E335C997DFDB31C72B7859D1A55"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-ENUM))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-ENUM))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -747,7 +765,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-function_F2016AEF11FA0AA386EA0971D636A317"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-FUNCTION))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-FUNCTION))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -756,7 +774,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-slot_A96FE07903D71A7D33210E57D092ED61"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-SLOT))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-SLOT))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -765,7 +783,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-struct_31BAE4212568559A8DA53506FED89DA5"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-STRUCT))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-STRUCT))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -774,7 +792,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-type_8F1DACFFBB3AB36E5F1C4867BDBCE779"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-TYPE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-TYPE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -783,7 +801,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-cffi-union_9C146995DBBC5B9276C5CF5DED781D7F"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CFFI-UNION))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CFFI-UNION))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -792,7 +810,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-class-node_1C148BB2FC6568EC22A8AEFE3F4504AE"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CLASS-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -801,7 +819,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-class-slot-node_1EEBAE9DD3933C0643B7982644D11CD6"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CLASS-SLOT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CLASS-SLOT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -810,7 +828,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-condition-node_7711F7740E8B3276EF10BA1A33BD8F08"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE CONDITION-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:CONDITION-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -819,7 +837,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-function-node_494EA4D786BD1F29ECC9956CBD7B25F9"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE FUNCTION-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:FUNCTION-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -828,7 +846,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-generic-function-node_9C37E4E25742AFCE5C9F31E201742CDF"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE GENERIC-FUNCTION-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:GENERIC-FUNCTION-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -837,7 +855,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-macro-node_67F9DD3A40CC2613C5B4659ACE3C78D2"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE MACRO-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:MACRO-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -846,7 +864,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-method-node_4F85CBCA1E7C2A5F417CEB4406EBDE75"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE METHOD-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:METHOD-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -855,7 +873,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-struct-node_B19272E8B90F3D869BD6E40CDFC088E6"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE STRUCT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -864,7 +882,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-struct-slot-node_BC27E9959ECA5614E6A8A9BBF90AF419"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE STRUCT-SLOT-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:STRUCT-SLOT-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -873,7 +891,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-type-node_7A6DB61B89D90701381B1269E2B495B7"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE TYPE-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:TYPE-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -882,7 +900,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node-variable-node_B12A2F31919540690519E18F3FEFE36E"></a>
 ### METHOD: `TYPE-KEYWORD` `((NODE VARIABLE-NODE))`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `((DOQUMEN::NODE DOCPARSER:VARIABLE-NODE))`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -891,7 +909,7 @@ print api-refs as markdown
 <a name="api-method-type-keyword-node_F9C04FE22297149AD52F4CFD7B15606E"></a>
 ### METHOD: `TYPE-KEYWORD` `(NODE)`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - LAMBDA LIST: `(DOQUMEN::NODE)`
 - SETF? `NIL`
 - QUALIFIERS: `NIL`
@@ -900,177 +918,177 @@ print api-refs as markdown
 <a name="api-variable-anchor-uri-encode-func_849B879FA1EB9A555D52A0686A6177EF"></a>
 ### VARIABLE: `*ANCHOR-URI-ENCODE-FUNC*`
 
-- SCOPE: INTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::SLUGIFY+MD5HEX`
+- SCOPE: EXTERNAL
+- INITIAL-VALUE: `#'DOQUMEN:SLUGIFY+MD5HEX`
 
 
 <a name="api-variable-api-ref-anchor-prefix_B40511D325F89B39AD8C7664F29CE9EC"></a>
 ### VARIABLE: `*API-REF-ANCHOR-PREFIX*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"API-"`
 
 
 <a name="api-variable-api-ref-code-string-func_BA7EC657E01F644C87D6109186CC0087"></a>
 ### VARIABLE: `*API-REF-CODE-STRING-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::API-REF-CODE-STRING-IN-MARKDOWN`
 
 
 <a name="api-variable-api-refs_9E5E4667BFE85E2047F2825526482CC2"></a>
 ### VARIABLE: `*API-REFS*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-api-refs-anchor_1C00BE77F7ACC4C7847E729521A2585A"></a>
 ### VARIABLE: `*API-REFS-ANCHOR*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"API-REFS"`
 
 
 <a name="api-variable-api-refs-heading_09684E836B4375D25D2D2960F9645F90"></a>
 ### VARIABLE: `*API-REFS-HEADING*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"# APIs"`
 
 
 <a name="api-variable-api-refs-sort-toc-packages-func_1A083316D169E3510A776FCC23978738"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-PACKAGES-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-sort-toc-symbols-func_5F07A8F909CEF80BE211D58AE25F760A"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-SYMBOLS-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-title_C093F46F4EFD545FDF07E0D2D6E3F2A2"></a>
 ### VARIABLE: `*API-REFS-TITLE*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"APIs"`
 
 
 <a name="api-variable-docparser-index_877CBCF365D078599E70822CFC305205"></a>
 ### VARIABLE: `*DOCPARSER-INDEX*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-out-stream_6DD76B70F00D1990F3A221CD63A013D9"></a>
 ### VARIABLE: `*OUT-STREAM*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-output-pn_4A294A5AA0AE1138CCCAE74D5580BE40"></a>
 ### VARIABLE: `*OUTPUT-PN*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-print-anchor-func_3B67F8E87653DE35F022173DADEE4D1F"></a>
 ### VARIABLE: `*PRINT-ANCHOR-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::PRINT-HTML-ANCHOR`
 
 
 <a name="api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD"></a>
 ### VARIABLE: `*PRINT-API-REFS-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
 
 
 <a name="api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2"></a>
 ### VARIABLE: `*PRINT-FOOTER-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
 
 
 <a name="api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1"></a>
 ### VARIABLE: `*PRINT-TOC-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
 
 
 <a name="api-variable-section-file-title-func_695D2ADA3C31A10D52CBC87766B39C9F"></a>
 ### VARIABLE: `*SECTION-FILE-TITLE-FUNC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
 
 
 <a name="api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1"></a>
 ### VARIABLE: `*SEED-PLIST*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-seed-prop-name_BA665738B8D0700D8C80349681934608"></a>
 ### VARIABLE: `*SEED-PROP-NAME*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-seed-symbol_079FF7EC29795BDDCDE2FD42A6B96CAE"></a>
 ### VARIABLE: `*SEED-SYMBOL*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-system-name_46AAC4E1EEEE25216FB3CBFF5368E088"></a>
 ### VARIABLE: `*SYSTEM-NAME*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-toc_9961AEB3C770DB1FA924E743D2E85628"></a>
 ### VARIABLE: `*TOC*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `NIL`
 
 
 <a name="api-variable-toc-anchor_28D41F0CA0E1EAF5301585D3020020D8"></a>
 ### VARIABLE: `*TOC-ANCHOR*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"TOC"`
 
 
 <a name="api-variable-toc-heading_774706828D2D5729A094D4897AACEC6F"></a>
 ### VARIABLE: `*TOC-HEADING*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"# Table of Contents"`
 
 
 <a name="api-variable-toc-title_5001DD973F071A0844D3208CE43FA38F"></a>
 ### VARIABLE: `*TOC-TITLE*`
 
-- SCOPE: INTERNAL
+- SCOPE: EXTERNAL
 - INITIAL-VALUE: `"Table of Contents"`
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:34:43.763456+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:51:59.973607+09:00

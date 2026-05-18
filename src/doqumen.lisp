@@ -1,8 +1,60 @@
 (defpackage #:doqumen
   (:use #:cl #:iterate)
   (:import-from #:rutils #:-> #:% #:appendf)
-  (:import-from #:rutils.anaphora #:awhen #:it)
-  (:export :build-doc))
+  (:import-from #:rutils.anaphora #:awhen #:aif #:it)
+  (:export
+   :build-doc
+
+   :*anchor-uri-encode-func*
+   :*api-ref-anchor-prefix*
+   :*api-ref-code-string-func*
+   :*api-refs*
+   :*api-refs-anchor*
+   :*api-refs-heading*
+   :*api-refs-sort-toc-packages-func*
+   :*api-refs-sort-toc-symbols-func*
+   :*api-refs-title*
+   :*docparser-index*
+   :*out-stream*
+   :*output-pn*
+   :*print-anchor-func*
+   :*print-api-refs-func*
+   :*print-footer-func*
+   :*print-toc-func*
+   :*section-file-title-func*
+   :*seed-plist*
+   :*seed-prop-name*
+   :*seed-symbol*
+   :*system-name*
+   :*toc*
+   :*toc-anchor*
+   :*toc-heading*
+   :*toc-title*
+
+   :api-ref-code-string
+
+   :system-definition-dir
+   :merge-pn-with-asdf-system-path
+
+   :seed-plist
+
+   :type-keyword
+   :node-info-list
+
+   :slugify
+   :slugify+md5hex
+
+   :print-anchor
+
+   :print-api-ref
+   :print-toc
+   :extract-file-title
+
+   :toc-appendf
+
+   :symbol-scope
+   :->one-line-string
+   ))
 
 (in-package :doqumen)
 
@@ -261,7 +313,9 @@
 (defparameter *api-ref-code-string-func* #'api-ref-code-string-in-markdown)
 
 (defun api-ref-code-string (string)
-  (funcall *api-ref-code-string-func* string))
+  (aif *api-ref-code-string-func*
+       (funcall it string)
+       string))
 
 
 
@@ -288,10 +342,12 @@
 
 
 (defun api-refs-sort-toc-symbols (symbs)
-  (funcall *api-refs-sort-toc-symbols-func* symbs))
+  (awhen *api-refs-sort-toc-symbols-func*
+    (funcall it symbs)))
 
 (defun api-refs-sort-toc-packages (symbs)
-  (funcall *api-refs-sort-toc-packages-func* symbs))
+  (awhen *api-refs-sort-toc-packages-func*
+    (funcall it symbs)))
 
 
 
@@ -344,11 +400,17 @@
 
 (defun print-html-anchor (text anchor-uri)
   (format *out-stream* "<a name=\"~a\">~a</a>~%"
-          (funcall *anchor-uri-encode-func* anchor-uri)
+          (aif *anchor-uri-encode-func*
+               (funcall it anchor-uri)
+               anchor-uri)
           (cl-who:escape-string text)))
 
 
 (defparameter *print-anchor-func* #'print-html-anchor)
+
+(defun print-anchor (text anchor-uri)
+  (awhen *print-anchor-func*
+    (funcall it text anchor-uri)))
 
 
 
@@ -532,16 +594,16 @@
 
 (defun print-api-refs-as-markdown (api-refs)
   "print api-refs as markdown"
-  (funcall *print-anchor-func* "" *api-refs-anchor*)
+  (print-anchor "" *api-refs-anchor*)
   (format *out-stream* "~A~%~%" *api-refs-heading*)
   (dolist (pkg api-refs)
-    (funcall *print-anchor-func* "" (getf pkg :anchor))
+    (print-anchor "" (getf pkg :anchor))
     (format *out-stream* "## ~A~%~%" (getf pkg :text))
     (awhen (getf pkg :docstring)
       (format *out-stream* "~A~%" it))
     ;;
     (dolist (symb (getf pkg :symbols))
-      (funcall *print-anchor-func* "" (getf symb :anchor))
+      (print-anchor "" (getf symb :anchor))
       (format *out-stream* "### ~A~%~%" (getf symb :text))
       (format *out-stream* "- SCOPE: ~A~%"
               (symbol-scope (getf symb :name) (getf pkg :pkg-name)))
@@ -556,7 +618,8 @@
 
 (defun print-api-ref ()
   (log:info "PRINT API-REF ...")
-  (funcall *print-api-refs-func* *api-refs*))
+  (awhen *print-api-refs-func*
+    (funcall it *api-refs*)))
 
 
 
@@ -588,12 +651,17 @@
 (defparameter *section-file-title-func*
   #'extract-first-heading-from-markdown-file)
 
+(defun extract-file-title (pn)
+  (aif *section-file-title-func*
+       (funcall it pn)
+       pn))
+
 
 (defun print-toc-as-markdown
     (toc &key (level 1))
   ;;
   (when (eq 1 level)
-    (funcall *print-anchor-func* "" *toc-anchor*)
+    (print-anchor "" *toc-anchor*)
     (format *out-stream* "~A~%~%" *toc-heading*))
   ;;
   (dolist (e toc)
@@ -617,7 +685,8 @@
 
 (defun print-toc ()
   (log:info "PRINT TOC ...")
-  (funcall *print-toc-func* *toc*))
+  (awhen *print-toc-func*
+    (funcall it *toc*)))
 
 
 
@@ -675,7 +744,7 @@
                                  :section section
                                  :sections sections*)))
         ((pathnamep section)
-         (toc-appendf toc :text (or (funcall *section-file-title-func* section)
+         (toc-appendf toc :text (or (extract-file-title section)
                                     (format nil "~A" section))
                           :anchor (format nil "~A" section)))
         (t
@@ -694,10 +763,6 @@
   (format *out-stream*
           "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~%"
           (local-time:now)))
-
-
-
-
 
 
 (defparameter *print-footer-func* #'print-footer-markdown)
@@ -729,7 +794,7 @@
           (let ((in-pn
                   (merge-pn-with-asdf-system-path section *system-name*)))
             (log:debug "COPYING FROM: ~a" in-pn)
-            (funcall *print-anchor-func* "" (format nil "~A" section))
+            (print-anchor "" (format nil "~A" section))
             (copy-file-into-stream in-pn *out-stream*)))))))
 
 
@@ -895,4 +960,3 @@
 
 
 
-;;; TODO defpkg:export
