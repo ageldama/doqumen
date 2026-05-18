@@ -695,14 +695,56 @@
     (getf *seed-plist* :sections))
 
 
+
+(defun split-symbol-and-args
+    (symb
+     &key
+       (pkg *package*)
+       (prefix "")
+       (space-char #\Space))
+  "Split Symbol/Keyword `SYMB` by `SPACE-CHAR` => `(VALUES SYMB REST-FORM)`
+
+`(split-symbol-and-args :foo) ;=> (VALUES 'FOO NIL)`
+
+`(split-symbol-and-args '|foo (list 'aaa 'bbb)|) ;=> (VALUES 'FOO (LIST 'AAA 'BBB))`
+
+The first symbol of result values will be interned in `PKG` and
+prefixed with `PREFIX`-string.
+"
+  (let* ((symb-str (string symb))
+         (symb*    symb)
+         (args     nil)
+         (space-at (position space-char symb-str)))
+    ;; symb*
+    (setf symb*
+          (rutils:-> (if space-at
+                         (str:substring 0 space-at symb-str)
+                         symb-str)
+                     (format nil "~a~a" prefix rutils:%)
+                     string-upcase
+                     (intern rutils:% pkg)))
+    ;; args:
+    (rutils:awhen space-at
+      (setf args (read-from-string
+                  (str:substring (1+ rutils:it) (length symb-str)
+                                 symb-str))))
+    ;;
+    (values symb* args)))
+
+
 (defun find+apply (prefix sym
                    &key args (pkg (find-package :doqumen)))
-  (apply (-> sym
-             string
-             (format nil "~a~a" prefix %)
-             string-upcase
-             (intern % pkg))
-         args))
+  "Find a function named `SYM` via `SPLIT-SYMBOL-AND-ARGS`
+
+Applies `ARGS` with extra arguments from `SPLIT-SYMBOL-AND-ARGS` if
+any available.
+"
+  (multiple-value-bind (func-symb extracted-args)
+      (split-symbol-and-args sym
+                             :prefix prefix
+                             :pkg pkg)
+    ;;
+    (apply func-symb (append args extracted-args))))
 
 
 
