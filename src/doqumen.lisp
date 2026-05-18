@@ -535,7 +535,7 @@
 
 (defun extract-first-heading-from-markdown-file (pn)
   (iter (for line in-file
-             pn
+             (merge-pn-with-asdf-system-path pn *system-name*)
              using #'read-line)
     (setf line (str:trim line))
     (multiple-value-bind (match-string reg-strings)
@@ -691,6 +691,7 @@
   ;;
   (log:info "LOADING SYSTEM: ~a" system-name)
   (asdf:find-system system-name)
+  (log:info "SYSTEM DEF DIR: ~A" (system-definition-dir system-name))
   ;;
   (let* ((*system-name* system-name)
          (*output-pn* (merge-pn-with-asdf-system-path output-file
@@ -751,12 +752,13 @@
   (dolist (pkg api-refs)
     (rutils:nconcf
      pkg
-     (list :text (format nil "PACKAGE: ~A"
-                         (api-ref-code-string
-                          (getf pkg :pkg-name)))
-           :anchor (format nil "~APACKAGE-~A"
-                           *api-ref-anchor-prefix*
-                           (getf pkg :pkg-name))))
+     (let ((pkg-name (-> (getf pkg :pkg-name)
+                         ->one-line-string)))
+       (list :text (format nil "PACKAGE: ~A"
+                           (api-ref-code-string pkg-name))
+             :anchor (format nil "~APACKAGE-~A"
+                             *api-ref-anchor-prefix*
+                             pkg-name))))
     ;;
     (dolist (symb (getf pkg :symbols))
       (let ((type (getf symb :type))
@@ -770,15 +772,17 @@
                                           (getf % :lambda-list)
                                           ->one-line-string)))
                  (list :text (format nil "~A: ~A ~A"
-                                     type name
+                                     type
+                                     (api-ref-code-string name)
                                      (api-ref-code-string lambda-list-str))
                        :anchor (format nil "~A~A-~A-~A"
                                        *api-ref-anchor-prefix*
-                                       type name lambda-list-string)))))
+                                       type name lambda-list-str)))))
           (t
            (rutils:nconcf
             symb
-            (list :text (format nil "~A: ~A" type name)
+            (list :text (format nil "~A: ~A" type
+                                (api-ref-code-string name))
                   :anchor (format nil "~A~A-~A"
                                   *api-ref-anchor-prefix*
                                   type name)))))))))
