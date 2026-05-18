@@ -203,17 +203,20 @@
    (docparser:cffi-type-base-type node)))
 
 (defmethod node-info-list ((node docparser:cffi-slot))
-  (list
-   :name
-   (docparser:node-name node)
-   :type
-   (docparser:cffi-slot-type node)))
+  (let ((result (list
+                 ;;:form (docparser:node-form node)
+                 :name (docparser:node-name node)
+                 :type (docparser:cffi-slot-type node))))
+    ;; (log:debug "|||~A" result)
+    result))
 
 (defmethod node-info-list ((node docparser:cffi-struct))
   (list
    :docstring (docparser:node-docstring node)
    :slots (loop for slot in (docparser:cffi-struct-slots node)
-                collect (node-info-list slot))))
+                for info = (node-info-list slot)
+                ;; do (log:debug ">>> ~W" info)
+                collect info)))
 
 (defmethod node-info-list ((node docparser:cffi-union))
   ;; FIXME: ->nil
@@ -300,16 +303,19 @@
    :type (docparser:struct-node-type node)))
 
 (defmethod node-info-list ((node docparser:class-slot-node))
-  (list
-   :name (docparser:node-name node)
-   :docstring (docparser:node-docstring node)
-   :accessors (docparser:slot-accessors node)
-   :readers   (docparser:slot-readers node)
-   :writers   (docparser:slot-writers node)
-   :type      (docparser:slot-type    node)
-   :initarg   (docparser:slot-initarg node)
-   :initform  (docparser:slot-initform node)
-   :allocation (docparser:slot-allocation node)))
+  ;; (log:debug "<<<CLASS ~W" node)
+  (let ((result (list
+                 :name (docparser:node-name node)
+                 :docstring (docparser:node-docstring node)
+                 :accessors (docparser:slot-accessors node)
+                 :readers   (docparser:slot-readers node)
+                 :writers   (docparser:slot-writers node)
+                 :type      (docparser:slot-type    node)
+                 :initarg   (docparser:slot-initarg node)
+                 :initform  (docparser:slot-initform node)
+                 :allocation (docparser:slot-allocation node))))
+    ;; (log:debug ">>>CLASS ~W" result)
+    result))
 
 (defmethod node-info-list ((node docparser:class-node))
   (list
@@ -403,44 +409,42 @@
 
 
 
-;;; FIXME:
 (defun api-refs-sort-toc-symbols-text-lexico (symbs)
-  (sort symbs (lambda (a b)
+  (stable-sort symbs (lambda (a b)
+                ;; (log:debug "A: ~W // B: ~W" a b)
                 (string-lessp
                  (getf a :text)
                  (getf b :text)))))
 
-;;; FIXME:
 (defun api-refs-sort-toc-packages-text-lexico (pkgs)
-  (sort pkgs (lambda (a b)
+  (stable-sort pkgs (lambda (a b)
                 (string-lessp
                  (getf a :text)
                  (getf b :text)))))
-
 
 
 (defparameter *api-refs-sort-toc-symbols-func*
-  nil;#'api-refs-sort-toc-symbols-text-lexico
+  #'api-refs-sort-toc-symbols-text-lexico
   )
 
 (defparameter *api-refs-sort-toc-packages-func*
-  nil;#'api-refs-sort-toc-packages-text-lexico
+  #'api-refs-sort-toc-packages-text-lexico
   )
 
 
 (defun api-refs-sort-toc-symbols (symbs)
-  "Destructively sort a list `SYMBS` with a function of
+  "Non-destructively sort a list `SYMBS` with a function of
 `*API-REFS-SORT-TOC-SYMBOLS-FUNC*`. Sorting when the function is
 non-NIL."
   (awhen *api-refs-sort-toc-symbols-func*
-    (funcall it symbs)))
+    (funcall it (copy-list symbs))))
 
 (defun api-refs-sort-toc-packages (symbs)
-  "Destructively sort a list `SYMBS` with a function
+  "Non-destructively sort a list `SYMBS` with a function
 `*API-REFS-SORT-TOC-PACKAGES-FUNC*`, Sorting when the variable is
 non-NIL."
   (awhen *api-refs-sort-toc-packages-func*
-    (funcall it symbs)))
+    (funcall it (copy-list symbs))))
 
 
 
@@ -454,7 +458,7 @@ non-NIL."
         (log:debug "GATHER IN PACKAGE: ~A" pkg-name)
         ;;
         (docparser:do-nodes (node pkg)
-          (log:debug "GATHER: ~A IN ~A" (docparser:node-name node) pkg-name)
+          (log:trace "GATHER: ~A IN ~A" (docparser:node-name node) pkg-name)
           (appendf pkg-symbols
                    (list (list :name (docparser:node-name node)
                                :type (type-keyword node)
@@ -546,10 +550,9 @@ non-NIL."
 
 (defmethod print-api-ref-body-as-markdown ((type (eql :cffi-slot))
                                            api-ref out-stream)
-  (let ((info (getf api-ref :info)))
-    (format out-stream "   - SLOT ~A / TYPE: ~A~%"
-            (code-string (getf info :name))
-            (code-string (getf info :type))))
+  (format out-stream "   - SLOT ~A / TYPE: ~A~%"
+          (code-string (getf api-ref :name))
+          (code-string (getf api-ref :type)))
   (awhen (getf api-ref :docstring)
     (format out-stream "      - ~A~%" it)))
 
@@ -735,7 +738,7 @@ non-NIL."
       (format *out-stream* "~A~%" it))
     ;;
     (dolist (symb (getf pkg :symbols))
-      (log:debug "SYMB: ~A" (getf symb :text))
+      (log:trace "SYMB: ~A" (getf symb :text))
       (print-anchor "" (getf symb :anchor))
       (format *out-stream* "### ~A~%~%" (getf symb :text))
       (format *out-stream* "- SCOPE: ~A~%"
@@ -1016,8 +1019,8 @@ any available.
     (log:info "DOC-PARSING: ~a ..." *system-name*)
     (let ((*docparser-index* (docparser:parse *system-name*)))
       (log:info "GATHERING API-REFS ...")
-      (let ((*api-refs* (gather-api-refs)))
-        (expand-api-refs-for-toc *api-refs*)
+      (let ((*api-refs* (-> (gather-api-refs)
+                            (expand-api-refs-for-toc %))))
         (log:info "BUILDING TOC ...")
         (let ((*toc* (build-toc)))
           ;;
@@ -1073,7 +1076,7 @@ any available.
     (dolist (symb (getf pkg :symbols))
       (let ((type (getf symb :type))
             (name (getf symb :name)))
-        (log:debug "SYMB: ~A" name)
+        (log:trace "SYMB: ~A" name)
         (case type
           (:method
               (rutils:nconcf
@@ -1098,7 +1101,9 @@ any available.
                                   *api-ref-anchor-prefix*
                                   type name)))))))
     ;;
-    (api-refs-sort-toc-symbols (getf pkg :symbols)))
+    (macrolet ((pkg-symbols () `(getf pkg :symbols)))
+      (setf (pkg-symbols)
+            (api-refs-sort-toc-symbols (pkg-symbols)))))
   (api-refs-sort-toc-packages api-refs))
 
 
@@ -1153,8 +1158,6 @@ any available.
 
 
 
-;;; FIXME: cffi-struct / slots
 
-;;; FIXME: sorting removes rest of lists
 
 

@@ -28,7 +28,24 @@ file.
    1. [License](#src05-licensemd_EFDB1F747BA5BEB0C3F1BFB3FAEA55F0)
    1. [APIs](#api-refs_523EACBA8CE3897B5EE91337B062B676)
       1. [PACKAGE: `DOQUMEN`](#api-package-doqumen_2B650FD091813ED13A817D4400A46408)
+         1. [FUNCTION: `->KEYWORD`](#api-function-keyword_A736D65A0A02C5991BE183AB516D45C9)
+         1. [FUNCTION: `->ONE-LINE-STRING`](#api-function-one-line-string_267F76BB6C7043DE104C364DF4D1FDED)
+         1. [FUNCTION: `->UPCASE`](#api-function-upcase_CCF2CC3ADBDCECFCFCCA3C9EF48E588F)
+         1. [FUNCTION: `API-REFS->TOC`](#api-function-api-refs-toc_80BE9DDE1BAE29FBEC1F4D466168E977)
+         1. [FUNCTION: `API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`](#api-function-api-refs-sort-toc-packages-text-lexico_3EDBFE1ACC28E736A35C2A4B525E64BD)
+         1. [FUNCTION: `API-REFS-SORT-TOC-PACKAGES`](#api-function-api-refs-sort-toc-packages_A47EC8F591F6FFDC6101B5ADD605EEE4)
+         1. [FUNCTION: `API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`](#api-function-api-refs-sort-toc-symbols-text-lexico_74B8C05AAEE4402FAE2BF1E7AE8E955E)
+         1. [FUNCTION: `API-REFS-SORT-TOC-SYMBOLS`](#api-function-api-refs-sort-toc-symbols_5B46F6105B0794FD5C6F1585DB24772B)
+         1. [FUNCTION: `BUILD-DOC`](#api-function-build-doc_312CA63E13E2B08CAE7D64B44CB089B7)
+         1. [FUNCTION: `BUILD-TOC`](#api-function-build-toc_520A797A54D29A1F1925BC7D1A633FCC)
+         1. [FUNCTION: `BYTES-TO-HEX`](#api-function-bytes-to-hex_241CF54D510AF0D56A2761D0988AFDB4)
+         1. [FUNCTION: `CODE-STRING-IN-MARKDOWN`](#api-function-code-string-in-markdown_FA967917FA69146B4646AD8EDC7837EB)
+         1. [FUNCTION: `CODE-STRING`](#api-function-code-string_F5628C49D6B6BFC10421DE611CF53EDB)
+         1. [FUNCTION: `COPY-FILE-INTO-STREAM`](#api-function-copy-file-into-stream_8DBD442662A3B6BA8275C6D6E207933C)
          1. [FUNCTION: `DIRECTORY-PN`](#api-function-directory-pn_F86EFC279522D457F3F0B629367DE218)
+         1. [FUNCTION: `ENCLOSE-AS-CODE-MARKDOWN`](#api-function-enclose-as-code-markdown_FF0CC3F4B0F45726647C039C494B0AD6)
+         1. [FUNCTION: `ESCAPE-CODE-TEXT-FOR-MARKDOWN`](#api-function-escape-code-text-for-markdown_B750C9C37744D2924970787EC54FCFAC)
+         1. [FUNCTION: `ESCAPE-TEXT-FOR-MARKDOWN`](#api-function-escape-text-for-markdown_0A0E27EEE5DF0447C22D18D85FD054B5)
          1. [FUNCTION: `EXPAND-API-REFS-FOR-TOC`](#api-function-expand-api-refs-for-toc_E02914B2A0E00F57C6C3201FC5C10C49)
          1. [FUNCTION: `EXTRACT-FILE-TITLE`](#api-function-extract-file-title_FFAC08C012144B3BADFF024D14DD58AD)
          1. [FUNCTION: `EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`](#api-function-extract-first-heading-from-markdown-file_730F81E641FF151849099101832AAD4D)
@@ -37,8 +54,8 @@ file.
          1. [FUNCTION: `INIT-LOGGER`](#api-function-init-logger_8A1376922ED11E09BA06EA3CBE1CA814)
          1. [FUNCTION: `MERGE-PN-WITH-ASDF-SYSTEM-PATH`](#api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5)
          1. [FUNCTION: `PRINT-ANCHOR`](#api-function-print-anchor_08C61BDB0F863D41C9BEE88B02E4A97E)
-         1. [FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
          1. [FUNCTION: `PRINT-API-REF`](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
+         1. [FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
          1. [FUNCTION: `PRINT-FOOTER-MARKDOWN`](#api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2)
          1. [FUNCTION: `PRINT-FOOTER`](#api-function-print-footer_014690A752E8AA77BEA138FF3DB991BA)
          1. [FUNCTION: `PRINT-HTML-ANCHOR`](#api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784)
@@ -46,7 +63,11 @@ file.
          1. [FUNCTION: `PRINT-TOC-AS-MARKDOWN`](#api-function-print-toc-as-markdown_D569F3A8D26A46027DB87F100A9FE258)
          1. [FUNCTION: `PRINT-TOC`](#api-function-print-toc_EB36BB057A5C71AD71517EF8249D9562)
          1. [FUNCTION: `REMOVE-NEWLINES`](#api-function-remove-newlines_DD09D2F83F240ABE9404AF982E96D4E9)
+         1. [FUNCTION: `REPR-STRING-IN-MARKDOWN`](#api-function-repr-string-in-markdown_6A27759631D96B236A8A66B7EE7FF802)
+         1. [FUNCTION: `REPR-STRING`](#api-function-repr-string_401A6CD1ABC85EDEA726AECB2548628A)
          1. [FUNCTION: `ROOT-SECTIONS`](#api-function-root-sections_EED5623E4F44AB8FB4B1CC6287FDB295)
+         1. [FUNCTION: `SAFE-STRING-IN-MARKDOWN`](#api-function-safe-string-in-markdown_A145483D20B152A8F365FD1BF2982D7E)
+         1. [FUNCTION: `SAFE-STRING`](#api-function-safe-string_4932FC0BC74B300F6F61390316139F44)
          1. [FUNCTION: `SEED-PLIST`](#api-function-seed-plist_762B2789D205C14E6052E6F187C7E890)
          1. [FUNCTION: `SLUGIFY+MD5HEX`](#api-function-slugifymd5hex_7620F9D4E8A3275BD8E07C86AFBD9BC3)
          1. [FUNCTION: `SLUGIFY`](#api-function-slugify_FB5C5450CFC6AB8136CB904EA95E43F8)
@@ -114,13 +135,13 @@ file.
          1. [METHOD: `TYPE-KEYWORD` `(NODE)`](#api-method-type-keyword-node_F9C04FE22297149AD52F4CFD7B15606E)
          1. [VARIABLE: `*ANCHOR-URI-ENCODE-FUNC*`](#api-variable-anchor-uri-encode-func_849B879FA1EB9A555D52A0686A6177EF)
          1. [VARIABLE: `*API-REF-ANCHOR-PREFIX*`](#api-variable-api-ref-anchor-prefix_B40511D325F89B39AD8C7664F29CE9EC)
-         1. [VARIABLE: `*API-REF-CODE-STRING-FUNC*`](#api-variable-api-ref-code-string-func_BA7EC657E01F644C87D6109186CC0087)
          1. [VARIABLE: `*API-REFS*`](#api-variable-api-refs_9E5E4667BFE85E2047F2825526482CC2)
          1. [VARIABLE: `*API-REFS-ANCHOR*`](#api-variable-api-refs-anchor_1C00BE77F7ACC4C7847E729521A2585A)
          1. [VARIABLE: `*API-REFS-HEADING*`](#api-variable-api-refs-heading_09684E836B4375D25D2D2960F9645F90)
          1. [VARIABLE: `*API-REFS-SORT-TOC-PACKAGES-FUNC*`](#api-variable-api-refs-sort-toc-packages-func_1A083316D169E3510A776FCC23978738)
          1. [VARIABLE: `*API-REFS-SORT-TOC-SYMBOLS-FUNC*`](#api-variable-api-refs-sort-toc-symbols-func_5F07A8F909CEF80BE211D58AE25F760A)
          1. [VARIABLE: `*API-REFS-TITLE*`](#api-variable-api-refs-title_C093F46F4EFD545FDF07E0D2D6E3F2A2)
+         1. [VARIABLE: `*CODE-STRING-FUNC*`](#api-variable-code-string-func_80F0611F6BB66C7F529BAE99FE49D934)
          1. [VARIABLE: `*DOCPARSER-INDEX*`](#api-variable-docparser-index_877CBCF365D078599E70822CFC305205)
          1. [VARIABLE: `*OUT-STREAM*`](#api-variable-out-stream_6DD76B70F00D1990F3A221CD63A013D9)
          1. [VARIABLE: `*OUTPUT-PN*`](#api-variable-output-pn_4A294A5AA0AE1138CCCAE74D5580BE40)
@@ -128,6 +149,8 @@ file.
          1. [VARIABLE: `*PRINT-API-REFS-FUNC*`](#api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD)
          1. [VARIABLE: `*PRINT-FOOTER-FUNC*`](#api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2)
          1. [VARIABLE: `*PRINT-TOC-FUNC*`](#api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1)
+         1. [VARIABLE: `*REPR-STRING-FUNC*`](#api-variable-repr-string-func_E65983C62B2765D0BD7A692754DAA263)
+         1. [VARIABLE: `*SAFE-STRING-FUNC*`](#api-variable-safe-string-func_522BA008C6E0CC048B892A394C963B6C)
          1. [VARIABLE: `*SECTION-FILE-TITLE-FUNC*`](#api-variable-section-file-title-func_695D2ADA3C31A10D52CBC87766B39C9F)
          1. [VARIABLE: `*SEED-PLIST*`](#api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1)
          1. [VARIABLE: `*SEED-PROP-NAME*`](#api-variable-seed-prop-name_BA665738B8D0700D8C80349681934608)
@@ -305,6 +328,129 @@ Please read the [./LICENSE](./LICENSE)
 <a name="api-package-doqumen_2B650FD091813ED13A817D4400A46408"></a>
 ## PACKAGE: `DOQUMEN`
 
+<a name="api-function-keyword_A736D65A0A02C5991BE183AB516D45C9"></a>
+### FUNCTION: `->KEYWORD`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
+
+<a name="api-function-one-line-string_267F76BB6C7043DE104C364DF4D1FDED"></a>
+### FUNCTION: `->ONE-LINE-STRING`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
+
+<a name="api-function-upcase_CCF2CC3ADBDCECFCFCCA3C9EF48E588F"></a>
+### FUNCTION: `->UPCASE`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::VAL)`
+- SETF? `NIL`
+
+
+<a name="api-function-api-refs-toc_80BE9DDE1BAE29FBEC1F4D466168E977"></a>
+### FUNCTION: `API-REFS->TOC`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
+
+<a name="api-function-api-refs-sort-toc-packages-text-lexico_3EDBFE1ACC28E736A35C2A4B525E64BD"></a>
+### FUNCTION: `API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::PKGS)`
+- SETF? `NIL`
+
+
+<a name="api-function-api-refs-sort-toc-packages_A47EC8F591F6FFDC6101B5ADD605EEE4"></a>
+### FUNCTION: `API-REFS-SORT-TOC-PACKAGES`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::SYMBS)`
+- SETF? `NIL`
+
+Non-destructively sort a list `SYMBS` with a function
+`*API-REFS-SORT-TOC-PACKAGES-FUNC*`, Sorting when the variable is
+non-NIL.
+
+<a name="api-function-api-refs-sort-toc-symbols-text-lexico_74B8C05AAEE4402FAE2BF1E7AE8E955E"></a>
+### FUNCTION: `API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::SYMBS)`
+- SETF? `NIL`
+
+
+<a name="api-function-api-refs-sort-toc-symbols_5B46F6105B0794FD5C6F1585DB24772B"></a>
+### FUNCTION: `API-REFS-SORT-TOC-SYMBOLS`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::SYMBS)`
+- SETF? `NIL`
+
+Non-destructively sort a list `SYMBS` with a function of
+`*API-REFS-SORT-TOC-SYMBOLS-FUNC*`. Sorting when the function is
+non-NIL.
+
+<a name="api-function-build-doc_312CA63E13E2B08CAE7D64B44CB089B7"></a>
+### FUNCTION: `BUILD-DOC`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME &KEY DOQUMEN::SEED-SYMBOL
+ (DOQUMEN::SEED-PROP-NAME :DOQUMEN) (DOQUMEN::OUTPUT-FILE \#P"docs/index.md"))`
+- SETF? `NIL`
+
+Build it!
+
+<a name="api-function-build-toc_520A797A54D29A1F1925BC7D1A633FCC"></a>
+### FUNCTION: `BUILD-TOC`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(&KEY DOQUMEN::SECTIONS)`
+- SETF? `NIL`
+
+
+<a name="api-function-bytes-to-hex_241CF54D510AF0D56A2761D0988AFDB4"></a>
+### FUNCTION: `BYTES-TO-HEX`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::BYTES)`
+- SETF? `NIL`
+
+
+<a name="api-function-code-string-in-markdown_FA967917FA69146B4646AD8EDC7837EB"></a>
+### FUNCTION: `CODE-STRING-IN-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+Quote `STRING` as a code-string in Markdown format
+
+<a name="api-function-code-string_F5628C49D6B6BFC10421DE611CF53EDB"></a>
+### FUNCTION: `CODE-STRING`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+Quote `STRING` as a code-literal in output format
+
+<a name="api-function-copy-file-into-stream_8DBD442662A3B6BA8275C6D6E207933C"></a>
+### FUNCTION: `COPY-FILE-INTO-STREAM`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(DOQUMEN::IN-FILE DOQUMEN::OUT-STREAM)`
+- SETF? `NIL`
+
+Copy contents of pathname `IN-FILE` into `OUT-STREAM`
+
 <a name="api-function-directory-pn_F86EFC279522D457F3F0B629367DE218"></a>
 ### FUNCTION: `DIRECTORY-PN`
 
@@ -313,6 +459,30 @@ Please read the [./LICENSE](./LICENSE)
 - SETF? `NIL`
 
 Directory pathname from `PN`
+
+<a name="api-function-enclose-as-code-markdown_FF0CC3F4B0F45726647C039C494B0AD6"></a>
+### FUNCTION: `ENCLOSE-AS-CODE-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+
+<a name="api-function-escape-code-text-for-markdown_B750C9C37744D2924970787EC54FCFAC"></a>
+### FUNCTION: `ESCAPE-CODE-TEXT-FOR-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::STR)`
+- SETF? `NIL`
+
+
+<a name="api-function-escape-text-for-markdown_0A0E27EEE5DF0447C22D18D85FD054B5"></a>
+### FUNCTION: `ESCAPE-TEXT-FOR-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::STR)`
+- SETF? `NIL`
+
 
 <a name="api-function-expand-api-refs-for-toc_E02914B2A0E00F57C6C3201FC5C10C49"></a>
 ### FUNCTION: `EXPAND-API-REFS-FOR-TOC`
@@ -343,7 +513,8 @@ Extract the title of file of `PN` by using `*SECTION-FILE-TITLE-FUNC*`, if it's 
 ### FUNCTION: `FIND+APPLY`
 
 - SCOPE: EXTERNAL
-- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &KEY DOQUMEN::ARGS (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
+- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &KEY DOQUMEN::ARGS
+ (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
 - SETF? `NIL`
 
 Find a function named `SYM` via `SPLIT-SYMBOL-AND-ARGS`
@@ -386,15 +557,6 @@ Merged pathname `PN` (relative) with the system definition directory of `SYSTEM-
 
 Print anchor to the output, unless `*PRINT-ANCHOR-FUNC*` is NIL
 
-<a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
-### FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`
-
-- SCOPE: INTERNAL
-- LAMBDA LIST: `(DOQUMEN::API-REFS)`
-- SETF? `NIL`
-
-print api-refs as markdown
-
 <a name="api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0"></a>
 ### FUNCTION: `PRINT-API-REF`
 
@@ -404,6 +566,15 @@ print api-refs as markdown
 
 Print API references to the output, unless `*PRINT-API-REFS-FUNC*` is
 NIL
+
+<a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
+### FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(DOQUMEN::API-REFS)`
+- SETF? `NIL`
+
+print api-refs as markdown
 
 <a name="api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2"></a>
 ### FUNCTION: `PRINT-FOOTER-MARKDOWN`
@@ -462,6 +633,24 @@ Print TOC to the output using `*PRINT-TOC-FUNC*`, if it isn't NIL.
 - SETF? `NIL`
 
 
+<a name="api-function-repr-string-in-markdown_6A27759631D96B236A8A66B7EE7FF802"></a>
+### FUNCTION: `REPR-STRING-IN-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+Quote `STRING` as a value repr-string in Markdown format
+
+<a name="api-function-repr-string_401A6CD1ABC85EDEA726AECB2548628A"></a>
+### FUNCTION: `REPR-STRING`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+Quote `STRING` as a value repr-literal in output format
+
 <a name="api-function-root-sections_EED5623E4F44AB8FB4B1CC6287FDB295"></a>
 ### FUNCTION: `ROOT-SECTIONS`
 
@@ -469,6 +658,23 @@ Print TOC to the output using `*PRINT-TOC-FUNC*`, if it isn't NIL.
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
+
+<a name="api-function-safe-string-in-markdown_A145483D20B152A8F365FD1BF2982D7E"></a>
+### FUNCTION: `SAFE-STRING-IN-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+
+<a name="api-function-safe-string_4932FC0BC74B300F6F61390316139F44"></a>
+### FUNCTION: `SAFE-STRING`
+
+- SCOPE: EXTERNAL
+- LAMBDA LIST: `(STRING)`
+- SETF? `NIL`
+
+Escap `STRING` in output format
 
 <a name="api-function-seed-plist_762B2789D205C14E6052E6F187C7E890"></a>
 ### FUNCTION: `SEED-PLIST`
@@ -499,7 +705,8 @@ Get *seed plist*
 ### FUNCTION: `SPLIT-SYMBOL-AND-ARGS`
 
 - SCOPE: EXTERNAL
-- LAMBDA LIST: `(DOQUMEN::SYMB &KEY (DOQUMEN::PKG *PACKAGE*) (DOQUMEN::PREFIX "") (DOQUMEN::SPACE-CHAR #\ ))`
+- LAMBDA LIST: `(DOQUMEN::SYMB &KEY (DOQUMEN::PKG *PACKAGE*) (DOQUMEN::PREFIX "")
+ (DOQUMEN::SPACE-CHAR \#\ ))`
 - SETF? `NIL`
 
 Split Symbol/Keyword `SYMB` by `SPACE-CHAR` => `(VALUES SYMB REST-FORM)`
@@ -1062,7 +1269,7 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 ### VARIABLE: `*ANCHOR-URI-ENCODE-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN:SLUGIFY+MD5HEX`
+- INITIAL-VALUE: `\#'DOQUMEN:SLUGIFY+MD5HEX`
 
 
 <a name="api-variable-api-ref-anchor-prefix_B40511D325F89B39AD8C7664F29CE9EC"></a>
@@ -1072,14 +1279,6 @@ Directory pathname of ASDF system, `SYSTEM-NAME`
 - INITIAL-VALUE: `"API-"`
 
 A prefix to be prepended to anchor URI of API reference entries
-
-<a name="api-variable-api-ref-code-string-func_BA7EC657E01F644C87D6109186CC0087"></a>
-### VARIABLE: `*API-REF-CODE-STRING-FUNC*`
-
-- SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::API-REF-CODE-STRING-IN-MARKDOWN`
-
-A function to be used to quote code-string
 
 <a name="api-variable-api-refs_9E5E4667BFE85E2047F2825526482CC2"></a>
 ### VARIABLE: `*API-REFS*`
@@ -1100,21 +1299,21 @@ Generated API-references (internal data)
 ### VARIABLE: `*API-REFS-HEADING*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `"# APIs"`
+- INITIAL-VALUE: `"\# APIs"`
 
 
 <a name="api-variable-api-refs-sort-toc-packages-func_1A083316D169E3510A776FCC23978738"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-PACKAGES-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
+- INITIAL-VALUE: `\#'DOQUMEN::API-REFS-SORT-TOC-PACKAGES-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-sort-toc-symbols-func_5F07A8F909CEF80BE211D58AE25F760A"></a>
 ### VARIABLE: `*API-REFS-SORT-TOC-SYMBOLS-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
+- INITIAL-VALUE: `\#'DOQUMEN::API-REFS-SORT-TOC-SYMBOLS-TEXT-LEXICO`
 
 
 <a name="api-variable-api-refs-title_C093F46F4EFD545FDF07E0D2D6E3F2A2"></a>
@@ -1123,6 +1322,14 @@ Generated API-references (internal data)
 - SCOPE: EXTERNAL
 - INITIAL-VALUE: `"APIs"`
 
+
+<a name="api-variable-code-string-func_80F0611F6BB66C7F529BAE99FE49D934"></a>
+### VARIABLE: `*CODE-STRING-FUNC*`
+
+- SCOPE: EXTERNAL
+- INITIAL-VALUE: `\#'DOQUMEN::CODE-STRING-IN-MARKDOWN`
+
+A function to be used to quote code-string
 
 <a name="api-variable-docparser-index_877CBCF365D078599E70822CFC305205"></a>
 ### VARIABLE: `*DOCPARSER-INDEX*`
@@ -1151,35 +1358,51 @@ The output, pathname
 ### VARIABLE: `*PRINT-ANCHOR-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::PRINT-HTML-ANCHOR`
+- INITIAL-VALUE: `\#'DOQUMEN::PRINT-HTML-ANCHOR`
 
 
 <a name="api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD"></a>
 ### VARIABLE: `*PRINT-API-REFS-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
+- INITIAL-VALUE: `\#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
 
 
 <a name="api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2"></a>
 ### VARIABLE: `*PRINT-FOOTER-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
+- INITIAL-VALUE: `\#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
 
 
 <a name="api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1"></a>
 ### VARIABLE: `*PRINT-TOC-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
+- INITIAL-VALUE: `\#'DOQUMEN::PRINT-TOC-AS-MARKDOWN`
 
+
+<a name="api-variable-repr-string-func_E65983C62B2765D0BD7A692754DAA263"></a>
+### VARIABLE: `*REPR-STRING-FUNC*`
+
+- SCOPE: EXTERNAL
+- INITIAL-VALUE: `\#'DOQUMEN::REPR-STRING-IN-MARKDOWN`
+
+A function to be used to quote value repr-string
+
+<a name="api-variable-safe-string-func_522BA008C6E0CC048B892A394C963B6C"></a>
+### VARIABLE: `*SAFE-STRING-FUNC*`
+
+- SCOPE: EXTERNAL
+- INITIAL-VALUE: `\#'DOQUMEN::SAFE-STRING-IN-MARKDOWN`
+
+A function to be used to escape string for an output format
 
 <a name="api-variable-section-file-title-func_695D2ADA3C31A10D52CBC87766B39C9F"></a>
 ### VARIABLE: `*SECTION-FILE-TITLE-FUNC*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
+- INITIAL-VALUE: `\#'DOQUMEN::EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
 
 
 <a name="api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1"></a>
@@ -1232,7 +1455,7 @@ Currently specfied ASDF system name (keyword)
 ### VARIABLE: `*TOC-HEADING*`
 
 - SCOPE: EXTERNAL
-- INITIAL-VALUE: `"# Table of Contents"`
+- INITIAL-VALUE: `"\# Table of Contents"`
 
 
 <a name="api-variable-toc-title_5001DD973F071A0844D3208CE43FA38F"></a>
@@ -1243,4 +1466,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T21:21:03.846806+09:00 by https://github.com/ageldama
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T23:52:47.865202+09:00 by https://github.com/ageldama
