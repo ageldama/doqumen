@@ -19,6 +19,7 @@
                          ,#p"src/02-b-getting-started.md"
                          )
                         :api-ref ; Place API-Refs Here
+                        :footer
                         ))))
    ```
 

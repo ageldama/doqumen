@@ -561,14 +561,14 @@
 
 
 (defun extract-first-heading-from-markdown-file (pn)
-  (iter (for line in-file
-             (merge-pn-with-asdf-system-path pn *system-name*)
-             using #'read-line)
-    (setf line (str:trim line))
-    (multiple-value-bind (match-string reg-strings)
-        (cl-ppcre:scan-to-strings "^(#+)\\s*(.*)" line)
-      (when match-string
-        (return (aref reg-strings 1))))))
+  (let ((pn* (merge-pn-with-asdf-system-path pn *system-name*)))
+    (log:debug "EXTRACT HEADING FROM: ~a" pn*)
+    (iter (for line in-file pn* using #'read-line)
+      (setf line (str:trim line))
+      (multiple-value-bind (match-string reg-strings)
+          (cl-ppcre:scan-to-strings "^(#+)\\s*(.*)" line)
+        (when match-string
+          (return (aref reg-strings 1)))))))
 
 
 
@@ -668,6 +668,7 @@
                           :anchor *api-refs-anchor*
                           :children (api-refs->toc *api-refs*)
                           ))
+        ((eq section :footer) nil) ;; ignored in TOC
         ((pathnamep section)
          (toc-appendf toc :text (or (funcall *section-file-title-func* section)
                                     (format nil "~A" section))
@@ -676,6 +677,20 @@
          (toc-appendf toc :text section :anchor section))))
     toc))
 
+
+
+(defun print-footer-markdown ()
+  (format *out-stream* "--------------------------------~%")
+  (format *out-stream* "Generated with [doqumen](https://github.com/ageldama/doqumen/)~%")
+  )
+
+
+
+(defparameter *print-footer-func* #'print-footer-markdown)
+
+(defun print-footer ()
+  (when *print-footer-func*
+    (funcall *print-footer-func*)))
 
 
 
@@ -689,6 +704,7 @@
           (case section
             (:toc (print-toc))
             (:api-ref (print-api-ref))
+            (:footer (print-footer))
             ;; They told me I could be anything so I...:
             (t (find+apply "print-" section))))
         ((listp section)
@@ -856,6 +872,7 @@
                       )
                      ,#p"src/03-hacks.md"
                      :api-ref
+                     :footer
                      ))))
 
 

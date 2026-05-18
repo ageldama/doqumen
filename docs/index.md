@@ -4,6 +4,14 @@
 > Yet another Lisp documentation generator, but it's way more dumber
 > than others.
 
+Generate documentation of your Common Lisp system into single output
+file.
+
+1. Write docstrings in any format you want to.
+1. Place text files anywhere in the output.
+1. Can support any docstring, input text, output format. (... all you
+   need to do is hack this!)
+
 <a name="toc_6994206AA5146E62315E61B6ECF6F56B"></a>
 # Table of Contents
 
@@ -12,6 +20,7 @@
    1. [Introduction](#src02-intromd_E050A23B273C71B7871DD4D2C9CB5C4F)
       1. [Rationale](#src02-a-rationalemd_30CE56F7DCF9E4CA086A4C9AA1C3A494)
       1. [Getting Started](#src02-b-getting-startedmd_CFBB2CA153C21072C7866DDB66C66749)
+   1. [src/03-hacks.md](#src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0)
    1. [APIs](#api-refs_523EACBA8CE3897B5EE91337B062B676)
       1. [PACKAGE: `DOQUMEN`](#api-package-doqumen_2B650FD091813ED13A817D4400A46408)
          1. [FUNCTION: `DIRECTORY-PN`](#api-function-directory-pn_F86EFC279522D457F3F0B629367DE218)
@@ -23,6 +32,8 @@
          1. [FUNCTION: `MERGE-PN-WITH-ASDF-SYSTEM-PATH`](#api-function-merge-pn-with-asdf-system-path_D73CBF281FA3186F5767F6479331D1E5)
          1. [FUNCTION: `PRINT-API-REF`](#api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0)
          1. [FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`](#api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1)
+         1. [FUNCTION: `PRINT-FOOTER-MARKDOWN`](#api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2)
+         1. [FUNCTION: `PRINT-FOOTER`](#api-function-print-footer_014690A752E8AA77BEA138FF3DB991BA)
          1. [FUNCTION: `PRINT-HTML-ANCHOR`](#api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784)
          1. [FUNCTION: `PRINT-SECTIONS`](#api-function-print-sections_CFCC198E774025A3E6B4D794881839A5)
          1. [FUNCTION: `PRINT-TOC-AS-MARKDOWN`](#api-function-print-toc-as-markdown_D569F3A8D26A46027DB87F100A9FE258)
@@ -106,6 +117,7 @@
          1. [VARIABLE: `*OUTPUT-PN*`](#api-variable-output-pn_4A294A5AA0AE1138CCCAE74D5580BE40)
          1. [VARIABLE: `*PRINT-ANCHOR-FUNC*`](#api-variable-print-anchor-func_3B67F8E87653DE35F022173DADEE4D1F)
          1. [VARIABLE: `*PRINT-API-REFS-FUNC*`](#api-variable-print-api-refs-func_8B856258CC95A3388E122BAA397E7AFD)
+         1. [VARIABLE: `*PRINT-FOOTER-FUNC*`](#api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2)
          1. [VARIABLE: `*PRINT-TOC-FUNC*`](#api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1)
          1. [VARIABLE: `*SECTION-FILE-TITLE-FUNC*`](#api-variable-section-file-title-func_695D2ADA3C31A10D52CBC87766B39C9F)
          1. [VARIABLE: `*SEED-PLIST*`](#api-variable-seed-plist_EE1B1E228127D8A8AA87CAD1480C32F1)
@@ -153,6 +165,7 @@ I needed it, but I don't want to use anything else.
                          ,#p"src/02-b-getting-started.md"
                          )
                         :api-ref ; Place API-Refs Here
+                        :footer
                         ))))
    ```
 
@@ -161,6 +174,12 @@ I needed it, but I don't want to use anything else.
 1. Generate: `(DOQUMEN:BUILD-DOC :doqumen)`
 
 1. Enjoy the output: `docs/index.md`
+
+
+<a name="src03-hacksmd_25D1736D99E87D359C78AA9FBFBAE6E0"></a>
+
+TODO
+
 <a name="api-refs_523EACBA8CE3897B5EE91337B062B676"></a>
 # APIs
 
@@ -239,6 +258,22 @@ I needed it, but I don't want to use anything else.
 - SETF? `NIL`
 
 print api-refs as markdown
+
+<a name="api-function-print-footer-markdown_3F6DCEDBBD69BA203656B5F319090EE2"></a>
+### FUNCTION: `PRINT-FOOTER-MARKDOWN`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
+
+<a name="api-function-print-footer_014690A752E8AA77BEA138FF3DB991BA"></a>
+### FUNCTION: `PRINT-FOOTER`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `NIL`
+- SETF? `NIL`
+
 
 <a name="api-function-print-html-anchor_F4A2209CF03C8FC28F56297FFEA39784"></a>
 ### FUNCTION: `PRINT-HTML-ANCHOR`
@@ -950,6 +985,13 @@ print api-refs as markdown
 - INITIAL-VALUE: `#'DOQUMEN::PRINT-API-REFS-AS-MARKDOWN`
 
 
+<a name="api-variable-print-footer-func_798FC12B4E8DA61B8D5FB1CA380BFDA2"></a>
+### VARIABLE: `*PRINT-FOOTER-FUNC*`
+
+- SCOPE: INTERNAL
+- INITIAL-VALUE: `#'DOQUMEN::PRINT-FOOTER-MARKDOWN`
+
+
 <a name="api-variable-print-toc-func_731C433795BBC0E34FF0CB53BA21AAB1"></a>
 ### VARIABLE: `*PRINT-TOC-FUNC*`
 
@@ -1020,3 +1062,5 @@ print api-refs as markdown
 - INITIAL-VALUE: `"Table of Contents"`
 
 
+--------------------------------
+Generated with [doqumen](https://github.com/ageldama/doqumen/)
