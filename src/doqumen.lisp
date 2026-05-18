@@ -1028,6 +1028,8 @@ any available.
                       ,#p"src/02-c-syntax.md"
                       )
                      ,#p"src/03-hacks.md"
+                     ,#p"src/04-support.md"
+                     ,#p"src/05-license.md"
                      :api-ref
                      :footer
                      ))))
