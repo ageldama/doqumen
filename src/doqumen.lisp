@@ -315,6 +315,9 @@
                  :initform  (docparser:slot-initform node)
                  :allocation (docparser:slot-allocation node))))
     ;; (log:debug ">>>CLASS ~W" result)
+    ;; >>>CLASS (:NAME TCLISH:CLIENT-DATA :DOCSTRING NIL :ACCESSORS NIL :READERS
+    ;;       (TCLISH:CLIENT-DATA) :WRITERS NIL :TYPE NIL :INITARG NIL :INITFORM
+    ;;       NIL :ALLOCATION :INSTANCE)
     result))
 
 (defmethod node-info-list ((node docparser:class-node))
@@ -702,24 +705,24 @@ non-NIL."
 
 (defmethod print-api-ref-body-as-markdown ((type (eql :class-slot))
                                            api-ref out-stream)
-  (let ((info (getf api-ref :info)))
-    (format out-stream "   - SLOT ~A / TYPE: ~A~%"
-            (code-string (getf info :name))
-            (code-string (getf info :type)))
-    (format out-stream "      - ALLOCATION: ~A~%"
-            (code-string (getf info :allocation)))
-    (format out-stream "      - INITFORM: ~A~%"
-            (repr-string (getf info :initform)))
-    (format out-stream "      - INITARG: ~A~%"
-            (repr-string (getf info :initarg)))
-    (format out-stream "      - ACCESSOR: ~A~%"
-            (repr-string (getf info :accessor)))
-    (format out-stream "      - READERS: ~A~%"
-            (repr-string (getf info :readers)))
-    (format out-stream "      - WRITERS: ~A~%"
-            (repr-string (getf info :writer)))
-    (awhen (getf info :docstring)
-      (format out-stream "      - ~A~%" it))))
+  ;; (log:debug "SLOT: ~W" api-ref)
+  (format out-stream "   - CLASS-SLOT ~A / TYPE: ~A~%"
+          (code-string (getf api-ref :name))
+          (code-string (getf api-ref :type)))
+  (format out-stream "      - ALLOCATION: ~A~%"
+          (code-string (getf api-ref :allocation)))
+  (format out-stream "      - INITFORM: ~A~%"
+          (repr-string (getf api-ref :initform)))
+  (format out-stream "      - INITARG: ~A~%"
+          (repr-string (getf api-ref :initarg)))
+  (format out-stream "      - ACCESSOR: ~A~%"
+          (repr-string (getf api-ref :accessor)))
+  (format out-stream "      - READERS: ~A~%"
+          (repr-string (getf api-ref :readers)))
+  (format out-stream "      - WRITERS: ~A~%"
+          (repr-string (getf api-ref :writer)))
+  (awhen (getf api-ref :docstring)
+    (format out-stream "      - ~A~%" it)))
 
 
 ;; TODO condition?
@@ -1160,4 +1163,3 @@ any available.
 
 
 
-;; TODO class-slots
