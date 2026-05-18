@@ -681,8 +681,11 @@
 
 (defun print-footer-markdown ()
   (format *out-stream* "--------------------------------~%")
-  (format *out-stream* "Generated with [doqumen](https://github.com/ageldama/doqumen/)~%")
-  )
+  (format *out-stream* "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~%"
+          (local-time:now)))
+
+
+
 
 
 

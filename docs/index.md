@@ -1063,4 +1063,4 @@ print api-refs as markdown
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/)
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:19:33.780460+09:00
