@@ -4,7 +4,7 @@
   :mailto "ageldama@gmail.com"
   :license "MIT"
   :depends-on (:uiop :asdf :rutils :str :cl-ppcre
-               :docparser
+               :docparser :local-time
                :log4cl :iterate
                :md5 :cl-who)
   :components ((:module "src"

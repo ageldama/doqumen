@@ -45,6 +45,7 @@ file.
          1. [FUNCTION: `SLUGIFY`](#api-function-slugify_FB5C5450CFC6AB8136CB904EA95E43F8)
          1. [FUNCTION: `SYMBOL-SCOPE`](#api-function-symbol-scope_412C0506D16DF16942F8BC87368649D1)
          1. [FUNCTION: `SYSTEM-DEFINITION-DIR`](#api-function-system-definition-dir_5237ACD564C1A533380FD02E9F787927)
+         1. [FUNCTION: `TOC-FOOTER`](#api-function-toc-footer_D17691FB4A2016A4457038A304E46A77)
          1. [GENERIC-FUNCTION: `PRINT-API-REF-BODY-AS-MARKDOWN`](#api-generic-function-print-api-ref-body-as-markdown_559261591E44ADBBF851BD495517BAFC)
          1. [MACRO: `TOC-APPENDF`](#api-macro-toc-appendf_F49CDAAA2277C1D5A2D8D9C535C79F88)
          1. [METHOD: `NODE-INFO-LIST` `((NODE CFFI-BITFIELD))`](#api-method-node-info-list-node-cffi-bitfield_83DC4E4287DA8868F9C70C1AE0730DDE)
@@ -214,7 +215,8 @@ TODO
 ### FUNCTION: `FIND+APPLY`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &REST DOQUMEN::ARGS)`
+- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &REST DOQUMEN::ARGS &KEY
+                 (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
 - SETF? `NIL`
 
 
@@ -360,6 +362,14 @@ print api-refs as markdown
 
 - SCOPE: INTERNAL
 - LAMBDA LIST: `(DOQUMEN::SYSTEM-NAME)`
+- SETF? `NIL`
+
+
+<a name="api-function-toc-footer_D17691FB4A2016A4457038A304E46A77"></a>
+### FUNCTION: `TOC-FOOTER`
+
+- SCOPE: INTERNAL
+- LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
 
@@ -1063,4 +1073,4 @@ print api-refs as markdown
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:19:33.780460+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:29:33.229510+09:00

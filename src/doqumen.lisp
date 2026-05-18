@@ -626,12 +626,14 @@
     (getf *seed-plist* :sections))
 
 
-(defun find+apply (prefix sym &rest args)
+(defun find+apply (prefix sym
+                   &rest args
+                   &key (pkg (find-package :doqumen)))
   (apply (-> sym
              string
              (format nil "~a~a" prefix %)
              string-upcase
-             intern)
+             (intern % pkg))
          args))
 
 
@@ -668,7 +670,7 @@
                           :anchor *api-refs-anchor*
                           :children (api-refs->toc *api-refs*)
                           ))
-        ((eq section :footer) nil) ;; ignored in TOC
+        ((keywordp section) (find+apply "toc-" section))
         ((pathnamep section)
          (toc-appendf toc :text (or (funcall *section-file-title-func* section)
                                     (format nil "~A" section))
@@ -678,10 +680,15 @@
     toc))
 
 
+(defun toc-footer ()
+  ;; ignored
+  )
+
 
 (defun print-footer-markdown ()
   (format *out-stream* "--------------------------------~%")
-  (format *out-stream* "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~%"
+  (format *out-stream*
+          "Generated with [doqumen](https://github.com/ageldama/doqumen/) at ~a~%"
           (local-time:now)))
 
 
@@ -705,7 +712,6 @@
       (cond
         ((keywordp section)
           (case section
-            (:toc (print-toc))
             (:api-ref (print-api-ref))
             (:footer (print-footer))
             ;; They told me I could be anything so I...:
