@@ -627,8 +627,7 @@
 
 
 (defun find+apply (prefix sym
-                   &rest args
-                   &key (pkg (find-package :doqumen)))
+                   &key args (pkg (find-package :doqumen)))
   (apply (-> sym
              string
              (format nil "~a~a" prefix %)
@@ -670,7 +669,11 @@
                           :anchor *api-refs-anchor*
                           :children (api-refs->toc *api-refs*)
                           ))
-        ((keywordp section) (find+apply "toc-" section))
+        ((keywordp section)
+         (find+apply "toc-" section
+                     :args (list :toc toc
+                                 :section section
+                                 :sections sections*)))
         ((pathnamep section)
          (toc-appendf toc :text (or (funcall *section-file-title-func* section)
                                     (format nil "~A" section))
@@ -680,7 +683,8 @@
     toc))
 
 
-(defun toc-footer ()
+(defun toc-footer (&rest args)
+  (declare (ignore args))
   ;; ignored
   )
 
@@ -698,7 +702,8 @@
 
 (defparameter *print-footer-func* #'print-footer-markdown)
 
-(defun print-footer ()
+(defun print-footer (&rest args)
+  (declare (ignore args))
   (when *print-footer-func*
     (funcall *print-footer-func*)))
 
@@ -713,9 +718,11 @@
         ((keywordp section)
           (case section
             (:api-ref (print-api-ref))
-            (:footer (print-footer))
+            (:toc (print-toc))
             ;; They told me I could be anything so I...:
-            (t (find+apply "print-" section))))
+            (t (find+apply "print-" section
+                           :args (list :section section
+                                       :sections sections*)))))
         ((listp section)
          (print-sections :sections section))
         (t ;; else: just a section

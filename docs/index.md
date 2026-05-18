@@ -215,7 +215,7 @@ TODO
 ### FUNCTION: `FIND+APPLY`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &REST DOQUMEN::ARGS &KEY
+- LAMBDA LIST: `(DOQUMEN::PREFIX DOQUMEN::SYM &KEY DOQUMEN::ARGS
                  (DOQUMEN::PKG (FIND-PACKAGE :DOQUMEN)))`
 - SETF? `NIL`
 
@@ -273,7 +273,7 @@ print api-refs as markdown
 ### FUNCTION: `PRINT-FOOTER`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `NIL`
+- LAMBDA LIST: `(&REST DOQUMEN::ARGS)`
 - SETF? `NIL`
 
 
@@ -369,7 +369,7 @@ print api-refs as markdown
 ### FUNCTION: `TOC-FOOTER`
 
 - SCOPE: INTERNAL
-- LAMBDA LIST: `NIL`
+- LAMBDA LIST: `(&REST DOQUMEN::ARGS)`
 - SETF? `NIL`
 
 
@@ -1073,4 +1073,4 @@ print api-refs as markdown
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:29:33.229510+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T12:34:43.763456+09:00
