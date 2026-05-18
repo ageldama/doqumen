@@ -255,6 +255,7 @@ Directory pathname from `PN`
 - LAMBDA LIST: `(DOQUMEN::PN)`
 - SETF? `NIL`
 
+Extract the title of file of `PN` by using `*SECTION-FILE-TITLE-FUNC*`, if it's NIL, evaluate to just `PN`.
 
 <a name="api-function-extract-first-heading-from-markdown-file_730F81E641FF151849099101832AAD4D"></a>
 ### FUNCTION: `EXTRACT-FIRST-HEADING-FROM-MARKDOWN-FILE`
@@ -310,6 +311,7 @@ Merged pathname `PN` (relative) with the system definition directory of `SYSTEM-
 - LAMBDA LIST: `(DOQUMEN::TEXT DOQUMEN::ANCHOR-URI)`
 - SETF? `NIL`
 
+Print anchor to the output, unless `*PRINT-ANCHOR-FUNC*` is NIL
 
 <a name="api-function-print-api-ref_6935C1D6B8E50B199E7457F07176F7D0"></a>
 ### FUNCTION: `PRINT-API-REF`
@@ -318,6 +320,8 @@ Merged pathname `PN` (relative) with the system definition directory of `SYSTEM-
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
+Print API references to the output, unless `*PRINT-API-REFS-FUNC*` is
+NIL
 
 <a name="api-function-print-api-refs-as-markdown_8E0FCE3D35260AB962C999A65530CAA1"></a>
 ### FUNCTION: `PRINT-API-REFS-AS-MARKDOWN`
@@ -375,6 +379,7 @@ print api-refs as markdown
 - LAMBDA LIST: `NIL`
 - SETF? `NIL`
 
+Print TOC to the output using `*PRINT-TOC-FUNC*`, if it isn't NIL.
 
 <a name="api-function-remove-newlines_DD09D2F83F240ABE9404AF982E96D4E9"></a>
 ### FUNCTION: `REMOVE-NEWLINES`
@@ -442,6 +447,7 @@ prefixed with `PREFIX`-string.
 - LAMBDA LIST: `(DOQUMEN::NAME DOQUMEN::PKG-NAME)`
 - SETF? `NIL`
 
+Scope of symbol `NAME` under `PKG-NAME`. Evaluates as one of `:INTERNAL`, `:EXTERNAL`, or `:INHERITED`
 
 <a name="api-function-system-definition-dir_5237ACD564C1A533380FD02E9F787927"></a>
 ### FUNCTION: `SYSTEM-DEFINITION-DIR`
@@ -1169,4 +1175,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T15:59:23.028538+09:00
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:05:58.489307+09:00
