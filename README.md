@@ -248,17 +248,17 @@ But can be *customized* as you want to:
 If you want to use other than Markdown format for your docstrings,
 input text files, and the output text file, customize below variables:
 
-- *anchor-uri-encode-func*
-- *print-anchor-func*
-- *api-ref-anchor-prefix*
-- *api-ref-code-string-func*
-- *api-refs-anchor*
-- *api-refs-heading*
-- *api-refs-title*
-- *print-api-refs-func*
-- *print-footer-func*
-- *print-toc-func*
-- *section-file-title-func*
+- `*anchor-uri-encode-func*`
+- `*print-anchor-func*`
+- `*api-ref-anchor-prefix*`
+- `*api-ref-code-string-func*`
+- `*api-refs-anchor*`
+- `*api-refs-heading*`
+- `*api-refs-title*`
+- `*print-api-refs-func*`
+- `*print-footer-func*`
+- `*print-toc-func*`
+- `*section-file-title-func*`
 <a name="src03-b-custom-sectionsmd_4C92CCA6305EFED4D667DB942EF91B2F"></a>
 
 ## Your Own Custom Sections
@@ -1249,4 +1249,4 @@ Currently specfied ASDF system name (keyword)
 
 
 --------------------------------
-Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:44:30.588527+09:00 by https://github.com/ageldama
+Generated with [doqumen](https://github.com/ageldama/doqumen/) at 2026-05-18T16:48:26.918248+09:00 by https://github.com/ageldama
